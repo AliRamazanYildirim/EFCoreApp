@@ -7,17 +7,16 @@ using Microsoft.EntityFrameworkCore;
 Initialisierer.Build();
 using (var _kontext = new AppDBKontext())
 {
-    var neuesProdukt = new Produkt { Name = "Rotring 0.5mm ", Preis = 40, Vorrat = 100, Strichcode = 777 };
+    //var neuesProdukt = new Produkt { Name = "Rotring 0.5mm ", Preis = 40, Vorrat = 100, Strichcode = 777 };
 
-    Console.WriteLine($"Erster Zustand:{ _kontext.Entry(neuesProdukt).State}");
-
-    _kontext.Entry(neuesProdukt).State = EntityState.Added;
+    _kontext.Update(new Produkt() { ID = 5, Name = "Rotring 500 0.7mm", Preis = 100, Vorrat=100, Strichcode = 777 });
+    
+    await _kontext.SaveChangesAsync();
+    //Console.WriteLine($"Zustand nach Änderungen speichern:{ _kontext.Entry(produkt).State}");
+    //_kontext.Entry(neuesProdukt).State = EntityState.Added;
     //await _kontext.AddAsync(neuesProdukt);
 
-    Console.WriteLine($"Letzter Zustand:{ _kontext.Entry(neuesProdukt).State}");
 
-    await _kontext.SaveChangesAsync();
-    Console.WriteLine($"Zustand nach Änderungen speichern:{ _kontext.Entry(neuesProdukt).State}");
     //var produkte = await _kontext.Produkte.ToListAsync();
 
     //produkte.ForEach(produkte =>
