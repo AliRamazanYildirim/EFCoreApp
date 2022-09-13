@@ -11,6 +11,8 @@ namespace EFCoreApp.DBFirst.DZS
     
     public class DBKontextInitialisierer
     {
+        //Ich werde meine Datenbankeinstellungen in dieser Klasse vornehmen.
+        //Ich definiere diese Klasse als statisch, da ich datenbankbezogene Einstellungen nur einmal ausführen möchte.
         public static IConfigurationRoot configurationRoot;
         public static DbContextOptionsBuilder<AppDBKontext> optionsBuilder;
         public static void Build()

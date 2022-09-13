@@ -16,7 +16,7 @@ namespace EFCore.DBFirstZurScaffold.Models
         {
         }
 
-        public virtual DbSet<Produkte> Produkte { get; set; } = null!;
+        public virtual DbSet<Produkt> Produkte { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,7 +29,7 @@ namespace EFCore.DBFirstZurScaffold.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Produkte>(entity =>
+            modelBuilder.Entity<Produkt>(entity =>
             {
                 entity.ToTable("Produkte");
 

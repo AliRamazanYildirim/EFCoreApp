@@ -4,7 +4,7 @@ using EFCoreApp.DBFirst.DZS;
 using Microsoft.EntityFrameworkCore;
 
 DBKontextInitialisierer.Build();
-using (var _kontext= new AppDBKontext())
+using (var _kontext= new AppDBKontext())//Mit using Schlüsselwort wird AppDbKontext nur ein mal verwendet und von Zwischenspeicher gelöscht 
 {
     var produkte = await _kontext.Produkte.ToListAsync();
 

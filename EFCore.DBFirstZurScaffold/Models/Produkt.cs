@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EFCore.DBFirstZurScaffold.Models
 {
-    public partial class Produkte
+    public partial class Produkt
     {
         public int ID { get; set; }
         public string Name { get; set; } = null!;

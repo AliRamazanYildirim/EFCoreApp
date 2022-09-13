@@ -15,7 +15,7 @@ namespace EFCoreApp.DBFirst.DZS
         {
 
         }
-
+        //Wenn ein Konstruktor definiert wird, der Parameter akzeptiert, müssen wir auch das Standardäquivalent dieses Konstruktors definieren.
         public AppDBKontext(DbContextOptions<AppDBKontext> options):base(options)
         {
             
