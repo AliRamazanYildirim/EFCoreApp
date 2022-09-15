@@ -26,22 +26,30 @@ using (var _kontext = new AppDBKontext())
     //Aktualisieren eines Objekts mit Update Methode, das nicht im Speicher verfolgt wird und nicht von EF Core verfolgt wird
     //_kontext.Update(new Produkt() { ID = 6, Name = "Rotring 500 0.7mm", Preis = 100, Vorrat = 100, Strichcode = 777 });
 
-    var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 6);
-    produkt.Name = "Rotring Visumax 0.5 mm";
-    await _kontext.SaveChangesAsync();
+    //var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 6);
+    //produkt.Name = "Rotring Visumax 0.5 mm";
+    //await _kontext.SaveChangesAsync();
 
-    
+
 
     //Console.WriteLine($"Zustand nach Änderungen speichern:{_kontext.Entry(produkt).State}");
 
 
 
-    //var produkte = await _kontext.Produkte.ToListAsync();
+    //var produkte = await _kontext.Produkte.AsNoTracking().ToListAsync();
 
-    //produkte.ForEach(produkte =>
+    //produkte.ForEach(produkt =>
     //{
-    //    var zustand = _kontext.Entry(produkte).State;
-
-    //    Console.WriteLine($"{produkte.ID}:{produkte.Name} - {produkte.Preis} - {produkte.Vorrat} zustand:{zustand}");
+    //    Console.WriteLine($"{produkt.ID}:{produkt.Name} - {produkt.Preis} - {produkt.Vorrat} ");
     //});
+
+    _kontext.Produkte.Add(new() { Name = "Rotring Versatil", Preis = 70, Vorrat = 100, Strichcode = 1453});
+    _kontext.Produkte.Add(new() { Name = "Rotring 500", Preis = 50, Vorrat = 100, Strichcode = 1753 });
+    _kontext.Produkte.Add(new() { Name = "Rotring Rapid", Preis = 40, Vorrat = 100, Strichcode = 1553 });
+
+    //Console.WriteLine($"Kontext ID: {_kontext.ContextId}");
+
+    _kontext.Database.MigrateAsync();
+    
+    //_kontext.SaveChanges();
 }

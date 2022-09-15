@@ -12,6 +12,7 @@ namespace EFCore.CodeFirst.DZS
         public string Name { get; set; }
         public decimal Preis { get; set; }
         public int Vorrat { get; set; }
+        public DateTime? ErstellungsDatum { get; set; }
         public int Strichcode { get; set; }
     }
 }

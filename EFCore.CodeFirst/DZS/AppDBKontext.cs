@@ -17,5 +17,21 @@ namespace EFCore.CodeFirst.DZS
             Initialisierer.Build();
             optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
         }
+        public override int SaveChanges()
+        {
+            //Ich verschiebe das Erstellungsdatum an eine zentrale Stelle.
+            ChangeTracker.Entries().ToList().ForEach(data =>
+            {
+                if (data.Entity is Produkt produkt)
+                {
+                    if (data.State == EntityState.Added)
+                    {
+                        produkt.ErstellungsDatum = DateTime.Now;
+                    }
+                }
+            });
+
+            return base.SaveChanges();
+        }
     }
 }
