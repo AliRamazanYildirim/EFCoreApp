@@ -43,13 +43,40 @@ using (var _kontext = new AppDBKontext())
     //    Console.WriteLine($"{produkt.ID}:{produkt.Name} - {produkt.Preis} - {produkt.Vorrat} ");
     //});
 
-    _kontext.Produkte.Add(new() { Name = "Rotring Versatil", Preis = 70, Vorrat = 100, Strichcode = 1453});
-    _kontext.Produkte.Add(new() { Name = "Rotring 500", Preis = 50, Vorrat = 100, Strichcode = 1753 });
-    _kontext.Produkte.Add(new() { Name = "Rotring Rapid", Preis = 40, Vorrat = 100, Strichcode = 1553 });
+    //_kontext.Produkte.Add(new() { Name = "Rotring Versatil", Preis = 70, Vorrat = 100, Strichcode = 1453});
+    //_kontext.Produkte.Add(new() { Name = "Rotring 500", Preis = 50, Vorrat = 100, Strichcode = 1753 });
+    //_kontext.Produkte.Add(new() { Name = "Rotring Rapid", Preis = 40, Vorrat = 100, Strichcode = 1553 });
 
     //Console.WriteLine($"Kontext ID: {_kontext.ContextId}");
 
-    _kontext.Database.MigrateAsync();
-    
+    //_kontext.Database.MigrateAsync();
+
     //_kontext.SaveChanges();
+
+    //DbSet Methoden
+
+    //var produkte =  _kontext.Produkte.FirstOrDefault(p => p.ID == 17);//damit bekommt man leere Folge
+
+    //var produkte = _kontext.Produkte.First(p => p.ID == 17);//damit bekommt man eine Ausnahme
+
+    //Wenn man mit einer bestimmten Datei arbeiten wird, ist das besser, falls man SingleAsync Methode verwendet
+    //var produkt = await _kontext.Produkte.SingleAsync(p => p.ID > 7);//damit findet man die Datei
+
+
+    //Console.WriteLine($"{produkt.ID}:{produkt.Name} - {produkt.Preis} - {produkt.Vorrat} ");
+
+    //var produkt = await _kontext.Produkte.Where(p => p.ID > 7 && p.Preis>100).ToListAsync();
+
+    //var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 7);
+
+    ////In diesem Fall ist Status von ID=7 detached. Also es wird nicht verfolgt
+    //var produkt = await _kontext.Produkte.AsNoTracking().FirstAsync(p => p.ID == 7);
+
+    //var produkt1 = await _kontext.Produkte.SingleAsync(p => p.Preis == 100);
+    //var produkt2 = await _kontext.Produkte.FindAsync(7);
+
+    ////Mit First Async Methode kann man eine Variable ändern, dann wird Status Modified.
+    //produkt.Vorrat = 300;
+    //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
+
 }
