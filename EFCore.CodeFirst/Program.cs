@@ -53,6 +53,7 @@ using (var _kontext = new AppDBKontext())
 
     //_kontext.SaveChanges();
 
+    #region DbSet Methoden mit Beispiele verwenden
     //DbSet Methoden
 
     //var produkte =  _kontext.Produkte.FirstOrDefault(p => p.ID == 17);//damit bekommt man leere Folge
@@ -67,7 +68,7 @@ using (var _kontext = new AppDBKontext())
 
     //var produkt = await _kontext.Produkte.Where(p => p.ID > 7 && p.Preis>100).ToListAsync();
 
-    //var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 7);
+    var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 7);
 
     ////In diesem Fall ist Status von ID=7 detached. Also es wird nicht verfolgt
     //var produkt = await _kontext.Produkte.AsNoTracking().FirstAsync(p => p.ID == 7);
@@ -75,8 +76,9 @@ using (var _kontext = new AppDBKontext())
     //var produkt1 = await _kontext.Produkte.SingleAsync(p => p.Preis == 100);
     //var produkt2 = await _kontext.Produkte.FindAsync(7);
 
-    ////Mit First Async Methode kann man eine Variable ändern, dann wird Status Modified.
-    //produkt.Vorrat = 300;
-    //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
-
+    //Mit First Async Methode kann man eine Variable ändern, dann wird Status Modified.
+    produkt.Vorrat = 300;
+    Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
+    
 }
+#endregion
