@@ -4,6 +4,7 @@ using EFCore.CodeFirst.DZS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    partial class AppDBKontextModelSnapshot : ModelSnapshot
+    [Migration("20220920153641_ÄndereSpaltenNameDerProdukt")]
+    partial class ÄndereSpaltenNameDerProdukt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +37,9 @@ namespace EFCore.CodeFirst.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nchar(150)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("markenName")
-                        .HasColumnOrder(2)
-                        .IsFixedLength();
+                        .HasColumnOrder(2);
 
                     b.Property<decimal>("Preis")
                         .HasColumnType("decimal(18,2)");

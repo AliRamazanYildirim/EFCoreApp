@@ -4,6 +4,7 @@ using EFCore.CodeFirst.DZS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    partial class AppDBKontextModelSnapshot : ModelSnapshot
+    [Migration("20220920141750_ÄndereNameDerProduktTabelle")]
+    partial class ÄndereNameDerProduktTabelle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,7 @@ namespace EFCore.CodeFirst.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
@@ -35,12 +36,7 @@ namespace EFCore.CodeFirst.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nchar(150)")
-                        .HasColumnName("markenName")
-                        .HasColumnOrder(2)
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Preis")
                         .HasColumnType("decimal(18,2)");
@@ -53,7 +49,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProduktTbl", "produkte");
+                    b.ToTable("ProduktTb", "produkte");
                 });
 #pragma warning restore 612, 618
         }
