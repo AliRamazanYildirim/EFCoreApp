@@ -22,25 +22,35 @@ namespace EFCore.CodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Kategorien");
+                });
+
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<DateTime?>("ErstellungsDatum")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("KategorieID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nchar(150)")
-                        .HasColumnName("markenName")
-                        .HasColumnOrder(2)
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Preis")
                         .HasColumnType("decimal(18,2)");
@@ -53,7 +63,21 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProduktTbl", "produkte");
+                    b.HasIndex("KategorieID");
+
+                    b.ToTable("Produkte");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DZS.Kategorie", null)
+                        .WithMany("Produkte")
+                        .HasForeignKey("KategorieID");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
+                {
+                    b.Navigation("Produkte");
                 });
 #pragma warning restore 612, 618
         }

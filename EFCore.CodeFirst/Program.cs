@@ -82,7 +82,7 @@ using (var _kontext = new AppDBKontext())
     
 }
 #endregion
-#region EF Core Configuration
+    #region EF Core Configuration
 
 
-#endregion
+    #endregion
