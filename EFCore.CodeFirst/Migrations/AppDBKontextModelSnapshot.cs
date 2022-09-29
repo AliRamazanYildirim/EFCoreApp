@@ -68,6 +68,34 @@ namespace EFCore.CodeFirst.Migrations
                     b.ToTable("Produkte");
                 });
 
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Farbe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Grösse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Höhe")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProduktID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProduktID")
+                        .IsUnique();
+
+                    b.ToTable("ProduktEigenschaften");
+                });
+
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
                 {
                     b.HasOne("EFCore.CodeFirst.DZS.Kategorie", null)
@@ -75,9 +103,25 @@ namespace EFCore.CodeFirst.Migrations
                         .HasForeignKey("KategorieID");
                 });
 
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DZS.Produkt", "Produkt")
+                        .WithOne("ProduktEigenschaft")
+                        .HasForeignKey("EFCore.CodeFirst.DZS.ProduktEigenschaft", "ProduktID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produkt");
+                });
+
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
                 {
                     b.Navigation("Produkte");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
+                {
+                    b.Navigation("ProduktEigenschaft");
                 });
 #pragma warning restore 612, 618
         }

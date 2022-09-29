@@ -43,14 +43,45 @@ namespace EFCore.CodeFirst.Migrations
                         principalColumn: "ID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProduktEigenschaften",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Grösse = table.Column<int>(type: "int", nullable: false),
+                    Höhe = table.Column<int>(type: "int", nullable: false),
+                    Farbe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProduktID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProduktEigenschaften", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ProduktEigenschaften_Produkte_ProduktID",
+                        column: x => x.ProduktID,
+                        principalTable: "Produkte",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Produkte_KategorieID",
                 table: "Produkte",
                 column: "KategorieID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProduktEigenschaften_ProduktID",
+                table: "ProduktEigenschaften",
+                column: "ProduktID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ProduktEigenschaften");
+
             migrationBuilder.DropTable(
                 name: "Produkte");
 

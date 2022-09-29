@@ -26,5 +26,7 @@ namespace EFCore.CodeFirst.DZS
         //[ForeignKey("Kategorie_ID")]
         //public Kategorie Kategorie { get; set; }
         #endregion
+
+        public ProduktEigenschaft ProduktEigenschaft { get; set; }
     }
 }

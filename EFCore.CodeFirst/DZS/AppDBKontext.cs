@@ -13,7 +13,7 @@ namespace EFCore.CodeFirst.DZS
     {
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie>Kategorien { get; set; }
-       
+        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Initialisierer.Build();
@@ -49,8 +49,14 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(150).IsFixedLength();
             #endregion
             #region In DbKontext Klasse mit Fluent API FK definieren
+            //Wenn man FK speziell benenen will, soll man Fluent API verwenden.
+
+            //One-To-Many
             //Immer mit Has fängt man an, dann verwendet man With property
             //modelBuilder.Entity<Kategorie>().HasMany(k => k.Produkte).WithOne(p => p.Kategorie).HasForeignKey(p=>p.Kategorie_ID);
+            //One-To-One
+            //modelBuilder.Entity<Produkt>().HasOne(k => k.ProduktEigenschaft).WithOne(p => p.Produkt).
+            //    HasForeignKey<ProduktEigenschaft>(pe => pe.ProduktID);
             #endregion
             base.OnModelCreating(modelBuilder);
         }
