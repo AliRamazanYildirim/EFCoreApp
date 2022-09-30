@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20220929115051_Initiale")]
-    partial class Initiale
+    [Migration("20220930114527_Initiale_FluentAPI_FKErstellen")]
+    partial class Initiale_FluentAPI_FKErstellen
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,10 +73,7 @@ namespace EFCore.CodeFirst.Migrations
             modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Farbe")
                         .HasColumnType("nvarchar(max)");
@@ -87,13 +84,7 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<int>("Höhe")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProduktID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("ProduktID")
-                        .IsUnique();
 
                     b.ToTable("ProduktEigenschaften");
                 });
@@ -109,7 +100,7 @@ namespace EFCore.CodeFirst.Migrations
                 {
                     b.HasOne("EFCore.CodeFirst.DZS.Produkt", "Produkt")
                         .WithOne("ProduktEigenschaft")
-                        .HasForeignKey("EFCore.CodeFirst.DZS.ProduktEigenschaft", "ProduktID")
+                        .HasForeignKey("EFCore.CodeFirst.DZS.ProduktEigenschaft", "ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

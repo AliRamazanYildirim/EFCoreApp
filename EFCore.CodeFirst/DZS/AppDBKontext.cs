@@ -56,7 +56,7 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Kategorie>().HasMany(k => k.Produkte).WithOne(p => p.Kategorie).HasForeignKey(p=>p.Kategorie_ID);
             //One-To-One
             //modelBuilder.Entity<Produkt>().HasOne(k => k.ProduktEigenschaft).WithOne(p => p.Produkt).
-            //    HasForeignKey<ProduktEigenschaft>(pe => pe.ProduktID);
+            //    HasForeignKey<ProduktEigenschaft>(pe => pe.ID);
             #endregion
             base.OnModelCreating(modelBuilder);
         }

@@ -4,7 +4,7 @@
 
 namespace EFCore.CodeFirst.Migrations
 {
-    public partial class Initiale : Migration
+    public partial class Initiale_FluentAPI_FKErstellen : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,19 +47,17 @@ namespace EFCore.CodeFirst.Migrations
                 name: "ProduktEigenschaften",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<int>(type: "int", nullable: false),
                     Grösse = table.Column<int>(type: "int", nullable: false),
                     Höhe = table.Column<int>(type: "int", nullable: false),
-                    Farbe = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProduktID = table.Column<int>(type: "int", nullable: false)
+                    Farbe = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProduktEigenschaften", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ProduktEigenschaften_Produkte_ProduktID",
-                        column: x => x.ProduktID,
+                        name: "FK_ProduktEigenschaften_Produkte_ID",
+                        column: x => x.ID,
                         principalTable: "Produkte",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -69,12 +67,6 @@ namespace EFCore.CodeFirst.Migrations
                 name: "IX_Produkte_KategorieID",
                 table: "Produkte",
                 column: "KategorieID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProduktEigenschaften_ProduktID",
-                table: "ProduktEigenschaften",
-                column: "ProduktID",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
