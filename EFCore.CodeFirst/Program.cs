@@ -79,10 +79,37 @@ using (var _kontext = new AppDBKontext())
     //Mit First Async Methode kann man eine Variable ändern, dann wird Status Modified.
     //produkt.Vorrat = 300;
     //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
-    
+    #region Datei hinzufügen
+    var kategorie = new Kategorie()
+    {
+        Name = "Bücher"
+
+    };
+    var produkt = new Produkt()
+    {
+        Name = "Aspekte Neu C1",
+        Preis = 55,
+        Vorrat = 100,
+        Strichcode = 1457,
+        Kategorie = kategorie,
+    };
+    kategorie.Produkte.Add(new()
+    {
+        Name="Aspekte Neu B2",
+        Preis=45,
+        Vorrat=100,
+        Strichcode=1452,
+        Kategorie=kategorie //Ohne Kategorie zu schreiben,kann man ein Produkt hinzufügen
+
+    });
+    _kontext.Produkte.Add(produkt);
+    _kontext.SaveChanges();
+    Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
 }
 #endregion
-    #region EF Core Configuration
+#region EF Core Configuration
 
 
-    #endregion
+#endregion
+

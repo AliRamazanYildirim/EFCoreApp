@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221003113502_Initiale_Abbildung_MitFK")]
-    partial class Initiale_Abbildung_MitFK
+    [Migration("20221004103110_Initiale")]
+    partial class Initiale
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace EFCore.CodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.Lehrer", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -36,10 +36,10 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Lehrer");
+                    b.ToTable("Kategorien");
                 });
 
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.Student", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -47,47 +47,42 @@ namespace EFCore.CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int>("Alter")
+                    b.Property<int>("KategorieID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Preis")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Strichcode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Vorrat")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Studenten");
+                    b.HasIndex("KategorieID");
+
+                    b.ToTable("Produkte");
                 });
 
-            modelBuilder.Entity("StudentLehrerManyToMany", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
                 {
-                    b.Property<int>("Lehrer_ID")
-                        .HasColumnType("int");
+                    b.HasOne("EFCore.CodeFirst.DZS.Kategorie", "Kategorie")
+                        .WithMany("Produkte")
+                        .HasForeignKey("KategorieID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("Student_ID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Lehrer_ID", "Student_ID");
-
-                    b.HasIndex("Student_ID");
-
-                    b.ToTable("StudentLehrerManyToMany");
+                    b.Navigation("Kategorie");
                 });
 
-            modelBuilder.Entity("StudentLehrerManyToMany", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
                 {
-                    b.HasOne("EFCore.CodeFirst.DZS.Lehrer", null)
-                        .WithMany()
-                        .HasForeignKey("Lehrer_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_LehrerID");
-
-                    b.HasOne("EFCore.CodeFirst.DZS.Student", null)
-                        .WithMany()
-                        .HasForeignKey("Student_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_StudentID");
+                    b.Navigation("Produkte");
                 });
 #pragma warning restore 612, 618
         }

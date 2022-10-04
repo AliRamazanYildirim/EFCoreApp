@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,8 @@ namespace EFCore.CodeFirst.DZS
         //public Kategorie Kategorie { get; set; }
         #endregion
 
-        public ProduktEigenschaft ProduktEigenschaft { get; set; }
+        //public ProduktEigenschaft ProduktEigenschaft { get; set; }
+        public int KategorieID { get; set; }
+        public Kategorie Kategorie { get; set; }
     }
 }

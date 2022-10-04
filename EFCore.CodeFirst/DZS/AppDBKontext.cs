@@ -11,8 +11,8 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        public DbSet<Student> Studenten { get; set; }
-        public DbSet<Lehrer> Lehrer { get; set; }
+        public DbSet<Produkt> Produkte { get; set; }
+        public DbSet<Kategorie> Kategorien { get; set; }
 
         //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -60,12 +60,14 @@ namespace EFCore.CodeFirst.DZS
             //    HasForeignKey<ProduktEigenschaft>(pe => pe.ID);
             #endregion
             #region Speziell Id definieren mit Fluent API
-            modelBuilder.Entity<Student>().HasMany(s => s.Lehrer)
-                .WithMany(t => t.Studenten)
-                .UsingEntity<Dictionary<string, object>>("StudentLehrerManyToMany",
-                tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
-                tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
+            //Many-To-Many
+            //modelBuilder.Entity<Student>().HasMany(s => s.Lehrer)
+            //    .WithMany(t => t.Studenten)
+            //    .UsingEntity<Dictionary<string, object>>("StudentLehrerManyToMany",
+            //    tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
+            //    tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
             #endregion
+
             base.OnModelCreating(modelBuilder);
         }
     }
