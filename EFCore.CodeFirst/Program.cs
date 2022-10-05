@@ -112,8 +112,8 @@ using (var _kontext = new AppDBKontext())
     #region One-To-One Datei hinzufügen
     //Produkt -->Parent(Principal)
     //ProduktEigenschaft -->Childed(Dependent)
+    #region 1.Weise
 
-    //1.Weise
     //var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
     //var produkt = new Produkt()
     //{
@@ -122,7 +122,7 @@ using (var _kontext = new AppDBKontext())
     //    Vorrat = 100,
     //    Strichcode = 1246,
     //    Kategorie=kategorie,
-       
+
     //    ProduktEigenschaft= new()
     //    {
     //        Farbe="Rot",
@@ -130,7 +130,9 @@ using (var _kontext = new AppDBKontext())
     //        Breite=10
     //    }
     //};
-    //2.Weise
+    #endregion
+    #region 2.Weise
+
     var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
     var produkt = new Produkt()
     {
@@ -140,18 +142,19 @@ using (var _kontext = new AppDBKontext())
         Strichcode = 1246,
         Kategorie = kategorie
     };
-        ProduktEigenschaft produktEigenschaft = new ProduktEigenschaft()
+    ProduktEigenschaft produktEigenschaft = new ProduktEigenschaft()
     {
         Farbe = "Schwarz",
         Grösse = 10,
         Breite = 2,
-        Produkt=produkt
+        Produkt = produkt
     };
     _kontext.ProduktEigenschaften.Add(produktEigenschaft);
-   
+
     _kontext.SaveChanges();
 
     Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
     #endregion
     #region EF Core Configuration
 
