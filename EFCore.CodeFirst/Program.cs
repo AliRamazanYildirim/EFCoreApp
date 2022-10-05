@@ -133,27 +133,75 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #region 2.Weise
 
-    var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
-    var produkt = new Produkt()
-    {
-        Name = "Rotring 600",
-        Preis = 35,
-        Vorrat = 100,
-        Strichcode = 1246,
-        Kategorie = kategorie
-    };
-    ProduktEigenschaft produktEigenschaft = new ProduktEigenschaft()
-    {
-        Farbe = "Schwarz",
-        Grösse = 10,
-        Breite = 2,
-        Produkt = produkt
-    };
-    _kontext.ProduktEigenschaften.Add(produktEigenschaft);
+    //var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
+    //var produkt = new Produkt()
+    //{
+    //    Name = "Rotring 600",
+    //    Preis = 35,
+    //    Vorrat = 100,
+    //    Strichcode = 1246,
+    //    Kategorie = kategorie
+    //};
+    //ProduktEigenschaft produktEigenschaft = new ProduktEigenschaft()
+    //{
+    //    Farbe = "Schwarz",
+    //    Grösse = 10,
+    //    Breite = 2,
+    //    Produkt = produkt
+    //};
+    //_kontext.ProduktEigenschaften.Add(produktEigenschaft);
 
-    _kontext.SaveChanges();
+    //_kontext.SaveChanges();
 
-    Console.WriteLine("Die Datei wurde gespeichert!");
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #endregion
+    #region Many-To-Many Datei hinzufügen
+
+    #region 1.Weise
+    //var student = new Student()
+    //{
+    //    Name = "Ali",
+    //    Alter = 20
+    //};
+    //student.Lehrer.Add(new()
+    //{
+    //    Name = "Elif"
+    //});
+    //_kontext.Add(student);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #region 2.Weise
+    //Wir können das obige Beispiel auch so durch Reverse Engineering spezifizieren.
+    //var lehrer=new Lehrer()
+    //{
+    //    Name="Sare",
+    //    Studenten=new List<Student>()
+    //    { 
+    //        new Student(){Name="Alparslan",Alter=22}
+    //    }
+    //};
+    //lehrer.Studenten.Add(new Student
+    //{
+    //    Name="Erkam",
+    //    Alter=21
+    //});
+    //_kontext.Add(lehrer);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #region Aktualisierung eines bestehenden Lehrers
+    //var lehrer = _kontext.Lehrer.First(l => l.Name == "Elif");
+
+    //lehrer.Studenten.AddRange(new List<Student> {
+
+    //    new() { Name = "Osman", Alter = 23 },
+    //    new() { Name = "Ebrar", Alter = 23 }
+    //});
+   
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
     #endregion
     #endregion
     #region EF Core Configuration
