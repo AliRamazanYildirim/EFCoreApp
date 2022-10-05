@@ -31,5 +31,6 @@ namespace EFCore.CodeFirst.DZS
         //public ProduktEigenschaft ProduktEigenschaft { get; set; }
         public int KategorieID { get; set; }
         public Kategorie Kategorie { get; set; }
+        public ProduktEigenschaft ProduktEigenschaft { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using EFCore.CodeFirst.DZS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    partial class AppDBKontextModelSnapshot : ModelSnapshot
+    [Migration("20221005111940_One-To-One_Datei_Hinzufügen")]
+    partial class OneToOne_Datei_Hinzufügen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,13 +74,13 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<int>("ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Breite")
-                        .HasColumnType("int");
-
                     b.Property<string>("Farbe")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Grösse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Höhe")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

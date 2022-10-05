@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 Initialisierer.Build();
 using (var _kontext = new AppDBKontext())
 {
+
+    #region EF Core Methoden
     //var neuesProdukt = new Produkt { Name = "Rotring 0.5mm ", Preis = 40, Vorrat = 100, Strichcode = 777 };
     //_kontext.Entry(neuesProdukt).State = EntityState.Added;
     //await _kontext.AddAsync(neuesProdukt);
@@ -52,7 +54,7 @@ using (var _kontext = new AppDBKontext())
     //_kontext.Database.MigrateAsync();
 
     //_kontext.SaveChanges();
-
+    #endregion
     #region DbSet Methoden mit Beispiele verwenden
     //DbSet Methoden
 
@@ -79,37 +81,83 @@ using (var _kontext = new AppDBKontext())
     //Mit First Async Methode kann man eine Variable ändern, dann wird Status Modified.
     //produkt.Vorrat = 300;
     //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
-    #region Datei hinzufügen
-    var kategorie = new Kategorie()
-    {
-        Name = "Bücher"
+    #endregion
+    #region One-To-Many Datei hinzufügen
+    //var kategorie = new Kategorie()
+    //{
+    //    Name = "Bücher"
 
-    };
+    //};
+    //var produkt = new Produkt()
+    //{
+    //    Name = "Aspekte Neu C1",
+    //    Preis = 55,
+    //    Vorrat = 100,
+    //    Strichcode = 1457,
+    //    Kategorie = kategorie,
+    //};
+    //kategorie.Produkte.Add(new()
+    //{
+    //    Name="Aspekte Neu B2",
+    //    Preis=45,
+    //    Vorrat=100,
+    //    Strichcode=1452,
+    //    Kategorie=kategorie //Ohne Kategorie zu schreiben,kann man ein Produkt hinzufügen
+
+    //});
+    //_kontext.Produkte.Add(produkt);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #region One-To-One Datei hinzufügen
+    //Produkt -->Parent(Principal)
+    //ProduktEigenschaft -->Childed(Dependent)
+
+    //1.Weise
+    //var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
+    //var produkt = new Produkt()
+    //{
+    //    Name = "Rotring 600",
+    //    Preis = 35,
+    //    Vorrat = 100,
+    //    Strichcode = 1246,
+    //    Kategorie=kategorie,
+       
+    //    ProduktEigenschaft= new()
+    //    {
+    //        Farbe="Rot",
+    //        Grösse=10,
+    //        Breite=10
+    //    }
+    //};
+    //2.Weise
+    var kategorie = _kontext.Kategorien.First(k => k.Name == " Druckbleistift");
     var produkt = new Produkt()
     {
-        Name = "Aspekte Neu C1",
-        Preis = 55,
+        Name = "Rotring 600",
+        Preis = 35,
         Vorrat = 100,
-        Strichcode = 1457,
-        Kategorie = kategorie,
+        Strichcode = 1246,
+        Kategorie = kategorie
     };
-    kategorie.Produkte.Add(new()
+        ProduktEigenschaft produktEigenschaft = new ProduktEigenschaft()
     {
-        Name="Aspekte Neu B2",
-        Preis=45,
-        Vorrat=100,
-        Strichcode=1452,
-        Kategorie=kategorie //Ohne Kategorie zu schreiben,kann man ein Produkt hinzufügen
-
-    });
-    _kontext.Produkte.Add(produkt);
+        Farbe = "Schwarz",
+        Grösse = 10,
+        Breite = 2,
+        Produkt=produkt
+    };
+    _kontext.ProduktEigenschaften.Add(produktEigenschaft);
+   
     _kontext.SaveChanges();
+
     Console.WriteLine("Die Datei wurde gespeichert!");
     #endregion
+    #region EF Core Configuration
+
+
+    #endregion
 }
-#endregion
-#region EF Core Configuration
 
 
-#endregion
 
