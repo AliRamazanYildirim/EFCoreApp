@@ -268,6 +268,18 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Datei wurde gelöscht!");
     #endregion
     #endregion
+    #region DatabaseGenerated Attribute
+    _kontext.Produkte.Add(new()
+    {
+        Name="Rotring 500",
+        Preis=46,
+        Strichcode=1456987,
+        Vorrat=100,
+        MwSt=18
+    });
+    _kontext.SaveChanges();
+    Console.WriteLine("Das Produkt wurde gespeichert!");
+    #endregion
     #region EF Core Configuration
 
 

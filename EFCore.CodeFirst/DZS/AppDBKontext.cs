@@ -70,6 +70,7 @@ namespace EFCore.CodeFirst.DZS
             //    tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
             //    tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
             #endregion
+            #region Relationships Delete Behaviors
             #region Cascade
             //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
             //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.Cascade);
@@ -83,8 +84,17 @@ namespace EFCore.CodeFirst.DZS
             //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.NoAction);
             #endregion
             #region SetNull
-            modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
-                (fk => fk.KategorieID).OnDelete(DeleteBehavior.SetNull);
+            //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
+            //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.SetNull);
+            #endregion
+            #endregion
+            #region DatabaseGenerated Attribute
+            //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).HasComputedColumnSql("[MwSt]*[Preis]");
+            #endregion
+            #region DatabaseGenerated Identity-Computed-None
+            //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAdd();//Identity
+            //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAddOrUpdate();//Computed
+            //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedNever();//None
             #endregion
             base.OnModelCreating(modelBuilder);
         }
