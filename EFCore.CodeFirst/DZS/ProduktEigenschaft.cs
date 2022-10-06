@@ -20,7 +20,8 @@ namespace EFCore.CodeFirst.DZS
         //public Produkt Produkt { get; set; }
         #endregion
         #region One-To-One Datei hinzufügen
-        public Produkt Produkt { get; set; }
+        //public Produkt Produkt { get; set; }
         #endregion
+
     }
 }

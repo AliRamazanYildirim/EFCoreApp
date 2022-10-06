@@ -11,6 +11,6 @@ namespace EFCore.CodeFirst.DZS
         public int ID { get; set; }
         public string Name { get; set; }
         public int Alter { get; set; }
-        public ICollection<Lehrer> Lehrer { get; set; } = new List<Lehrer>();
+        public List<Lehrer> Lehrer { get; set; } = new();
     }
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221005170932_Many-To-Manay_StudentUndLehrer")]
-    partial class ManyToManay_StudentUndLehrer
+    [Migration("20221006095239_Delete_Cascade")]
+    partial class Delete_Cascade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,7 +88,10 @@ namespace EFCore.CodeFirst.Migrations
             modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
                 {
                     b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("Breite")
                         .HasColumnType("int");
@@ -149,17 +152,6 @@ namespace EFCore.CodeFirst.Migrations
                     b.Navigation("Kategorie");
                 });
 
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
-                {
-                    b.HasOne("EFCore.CodeFirst.DZS.Produkt", "Produkt")
-                        .WithOne("ProduktEigenschaft")
-                        .HasForeignKey("EFCore.CodeFirst.DZS.ProduktEigenschaft", "ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produkt");
-                });
-
             modelBuilder.Entity("LehrerStudent", b =>
                 {
                     b.HasOne("EFCore.CodeFirst.DZS.Lehrer", null)
@@ -178,11 +170,6 @@ namespace EFCore.CodeFirst.Migrations
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
                 {
                     b.Navigation("Produkte");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
-                {
-                    b.Navigation("ProduktEigenschaft");
                 });
 #pragma warning restore 612, 618
         }

@@ -70,7 +70,22 @@ namespace EFCore.CodeFirst.DZS
             //    tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
             //    tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
             #endregion
-
+            #region Cascade
+            //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
+            //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.Cascade);
+            #endregion
+            #region Restrict
+            //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
+            //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.Restrict);
+            #endregion
+            #region NoAction
+            //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
+            //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.NoAction);
+            #endregion
+            #region SetNull
+            modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
+                (fk => fk.KategorieID).OnDelete(DeleteBehavior.SetNull);
+            #endregion
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -28,9 +28,9 @@ namespace EFCore.CodeFirst.DZS
         //public Kategorie Kategorie { get; set; }
         #endregion
 
+        //Um das Setnull-Verhalten zu verwenden, muss die Kategorie-ID ein Fragezeichen haben, damit sie leer sein kann
+        public int? KategorieID { get; set; }
+        public Kategorie? Kategorie { get; set; }
         //public ProduktEigenschaft ProduktEigenschaft { get; set; }
-        public int KategorieID { get; set; }
-        public Kategorie Kategorie { get; set; }
-        public ProduktEigenschaft ProduktEigenschaft { get; set; }
     }
 }

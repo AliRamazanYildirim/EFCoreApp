@@ -199,9 +199,73 @@ using (var _kontext = new AppDBKontext())
     //    new() { Name = "Osman", Alter = 23 },
     //    new() { Name = "Ebrar", Alter = 23 }
     //});
-   
+
     //_kontext.SaveChanges();
     //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #endregion
+    #region Relationships Delete Behaviors
+    #region Cascade
+    //var kategorie =new Kategorie() { Name="Druckbleistift",Produkte=new List<Produkt>()
+    //{
+    //    new Produkt(){Name="Rotring 500",Preis=65,Strichcode=12478},
+    //     new Produkt(){Name="Rotring 600",Preis=65,Strichcode=12478}
+    //}
+    //};
+    //_kontext.Add(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+
+    //var kategorie = _kontext.Kategorien.First();
+    //_kontext.Kategorien.Remove(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gelöscht!");
+    #endregion
+    #region Restrict
+    //var kategorie = new Kategorie()
+    //{
+    //    Name = "Druckbleistift",
+    //    Produkte = new List<Produkt>()
+    //{
+    //    new Produkt(){Name="Rotring 500",Preis=65,Strichcode=12478},
+    //     new Produkt(){Name="Rotring 600",Preis=65,Strichcode=12478}
+    //}
+    //};
+    //_kontext.Add(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+
+    //Der folgende Code wird geschrieben, um die Kategorie und Produkte, die sich auf diese Kategorie beziehen, zu löschen.
+
+    //var kategorie = _kontext.Kategorien.First();
+    //var produkts=_kontext.Produkte.Where(p=>p.KategorieID==kategorie.ID).ToList();
+    //_kontext.RemoveRange(produkts);
+    //_kontext.Kategorien.Remove(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gelöscht!");
+    #endregion
+    #region NoAction
+    //
+    #endregion
+    #region SetNull
+    //var kategorie = new Kategorie()
+    //{
+    //    Name = "Druckbleistift",
+    //    Produkte = new List<Produkt>()
+    //    {
+    //        new Produkt() { Name = "Rotring 800", Preis = 55, Vorrat = 100, Strichcode = 1456987 },
+    //        new Produkt() { Name = "Rotring 600", Preis = 45, Vorrat = 100, Strichcode = 1476587 }
+    //    }
+    //};
+    //_kontext.Add(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Datei wurde gespeichert!");
+
+    //var kategorie = _kontext.Kategorien.First();
+
+    //_kontext.Kategorien.Remove(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Datei wurde gelöscht!");
     #endregion
     #endregion
     #region EF Core Configuration
