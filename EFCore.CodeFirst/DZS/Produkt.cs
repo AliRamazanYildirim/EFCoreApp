@@ -15,18 +15,18 @@ namespace EFCore.CodeFirst.DZS
         #region Spalte umbenennen
         //[Column(Order = 1)]//Dies ist erforderlich, wenn Sie eine neue Tabelle erstellen, um eine Spaltensortierung durchzuführen. Andernfalls ist diese Operation für eine vorhandene Tabelle nicht gültig.
         #endregion
-        #region
-        //Bu öznitelik, kimlik değerinin artırılmaması gerektiğinde kullanılabilir.
+        #region DatabaseGeneratedOption.None
+        //Dieses Attribut kann verwendet werden, wenn der ID-Wert nicht erhöht werden soll.
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //public int ID { get; set; }
         #endregion
-        public int ID { get; set; }
-
         #region Spalte umbenennen
         //[Column("markenName", Order = 2)]
         //[Required]
         //[StringLength(150,MinimumLength =150)] //Wenn man sowohl bei der Datenbank auch als bei  FluentValidation Zeichenlänge verwenden möchte, soll hier es definieren
         #endregion
 
+        public int ID { get; set; }
         public string Name { get; set; }
         public decimal Preis { get; set; }
         public int Vorrat { get; set; }
@@ -44,10 +44,11 @@ namespace EFCore.CodeFirst.DZS
         //[ForeignKey("Kategorie_ID")]
         //public Kategorie Kategorie { get; set; }
         #endregion
-
+        #region Setnull-Verhalten 
         //Um das Setnull-Verhalten zu verwenden, muss die Kategorie-ID ein Fragezeichen haben, damit sie leer sein kann
         //public int? KategorieID { get; set; }
         //public Kategorie? Kategorie { get; set; }
         //public ProduktEigenschaft ProduktEigenschaft { get; set; }
+        #endregion
     }
 }
