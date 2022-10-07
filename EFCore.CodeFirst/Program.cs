@@ -82,6 +82,10 @@ using (var _kontext = new AppDBKontext())
     //produkt.Vorrat = 300;
     //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
     #endregion
+    #region EF Core Configuration ?
+
+
+    #endregion
     #region One-To-Many Datei hinzufügen
     //var kategorie = new Kategorie()
     //{
@@ -269,20 +273,54 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
     #region DatabaseGenerated Attribute
-    _kontext.Produkte.Add(new()
-    {
-        Name="Rotring 500",
-        Preis=46,
-        Strichcode=1456987,
-        Vorrat=100,
-        MwSt=18
-    });
-    _kontext.SaveChanges();
-    Console.WriteLine("Das Produkt wurde gespeichert!");
+    //_kontext.Produkte.Add(new()
+    //{
+    //    Name="Rotring 500",
+    //    Preis=46,
+    //    Strichcode=1456987,
+    //    Vorrat=100
+    //});
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Das Produkt wurde gespeichert!");
     #endregion
-    #region EF Core Configuration
+    #region Related Data Load
+    #region Eager Loading
+    //var kategorie = new Kategorie() { Name = "Aspekte" };
+    //kategorie.Produkte.Add(new()
+    //{
+    //    Name="Aspekte Neu C1",
+    //    Preis=35,
+    //    Vorrat=100,
+    //    Strichcode=154831,
+    //    ProduktEigenschaft = new() { Farbe="Rot", Grösse=30, Breite=15}
 
+    //});
+    //kategorie.Produkte.Add(new()
+    //{
+    //    Name = "Aspekte Neu C2",
+    //    Preis = 45,
+    //    Vorrat = 100,
+    //    Strichcode = 1454131,
+    //    ProduktEigenschaft = new() { Farbe = "Blau", Grösse = 30, Breite = 15 }
 
+    //});
+    //await _kontext.AddAsync(kategorie);
+    //await _kontext.SaveChangesAsync();
+    //Console.WriteLine("Das Buch wurde gespeichert!");
+
+    //var kategorieMitProdukte=_kontext.Kategorien.Include(k=>k.Produkte).ThenInclude(p=>p.ProduktEigenschaft).First();
+
+    // kategorieMitProdukte.Produkte.ForEach(produkt =>
+    //{
+    //    Console.WriteLine($"{kategorieMitProdukte.Name}{produkt.Name}{produkt.ProduktEigenschaft.Farbe } ");
+    //});
+
+    //Eager Loading ermöglicht es uns, bestehende Tabellen zusammenzuführen.
+
+    //var produkt = _kontext.Produkte.Include(pro=>pro.ProduktEigenschaft).Include(proEig=>proEig.Kategorie).First();
+
+    //Console.WriteLine("Das Buch wurde gespeichert!");
+    #endregion
     #endregion
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,14 +29,17 @@ namespace EFCore.CodeFirst.DZS
 
         public int ID { get; set; }
         public string Name { get; set; }
+        [Precision(9,2)]
         public decimal Preis { get; set; }
         public int Vorrat { get; set; }
         public int Strichcode { get; set; }
-        public int MwSt { get; set; }
-        
+        public int KategorieID { get; set; }
+        public Kategorie Kategorie { get; set; }
+        public ProduktEigenschaft ProduktEigenschaft { get; set; }
         #region DatabaseGenerated Attribute
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public decimal MwStPreis { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //public decimal MwStPreis { get; set; }
+        //public int MwSt { get; set; }
         //public DateTime ErstellungsDatum { get; set; } = DateTime.Now;
         #endregion
         #region 3.Weise mit ForeignKey Attribute FK erstellen

@@ -14,8 +14,8 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
-        public DbSet<Student> Studenten { get; set; }
-        public DbSet<Lehrer> Lehrer { get; set; }
+        //public DbSet<Student> Studenten { get; set; }
+        //public DbSet<Lehrer> Lehrer { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -95,6 +95,11 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAdd();//Identity
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAddOrUpdate();//Computed
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedNever();//None
+            #endregion
+            #region Related Data Load
+            #region Eager Loading Mit Fluent API
+            //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
+            #endregion
             #endregion
             base.OnModelCreating(modelBuilder);
         }
