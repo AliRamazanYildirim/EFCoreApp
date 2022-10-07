@@ -285,22 +285,23 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #region Related Data Load
     #region Eager Loading
+
     //var kategorie = new Kategorie() { Name = "Aspekte" };
     //kategorie.Produkte.Add(new()
     //{
-    //    Name="Aspekte Neu C1",
-    //    Preis=35,
-    //    Vorrat=100,
-    //    Strichcode=154831,
-    //    ProduktEigenschaft = new() { Farbe="Rot", Grösse=30, Breite=15}
+    //    Name = "Aspekte Neu B1",
+    //    Preis = 40,
+    //    Vorrat = 100,
+    //    Strichcode = 158831,
+    //    ProduktEigenschaft = new() { Farbe = "Rot", Grösse = 30, Breite = 15 }
 
     //});
     //kategorie.Produkte.Add(new()
     //{
-    //    Name = "Aspekte Neu C2",
+    //    Name = "Aspekte Neu B2",
     //    Preis = 45,
     //    Vorrat = 100,
-    //    Strichcode = 1454131,
+    //    Strichcode = 1454331,
     //    ProduktEigenschaft = new() { Farbe = "Blau", Grösse = 30, Breite = 15 }
 
     //});
@@ -320,6 +321,34 @@ using (var _kontext = new AppDBKontext())
     //var produkt = _kontext.Produkte.Include(pro=>pro.ProduktEigenschaft).Include(proEig=>proEig.Kategorie).First();
 
     //Console.WriteLine("Das Buch wurde gespeichert!");
+    #endregion
+    #region Explicit Loading
+
+    //One-To-Many (Collection)
+
+    //var kategorie = _kontext.Kategorien.First();
+    //if(kategorie != null)
+    //{
+    //    _kontext.Entry(kategorie).Collection(p => p.Produkte).Load();
+    //    kategorie.Produkte.ForEach(produkt =>
+    //    {
+    //        Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
+    //    });
+    //}
+
+    //One-To-One (Reference)
+
+    //var produkt = _kontext.Produkte.First();
+    //if (produkt != null)
+    //{
+    //    //1.Weise
+    //    _kontext.ProduktEigenschaften.Where(p => p.ID == produkt.ID).First();
+    //    //2.Weise (Best practice)
+    //    _kontext.Entry(produkt).Reference(p => p.ProduktEigenschaft).Load();
+       
+    //        Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
+        
+    //}
     #endregion
     #endregion
 }
