@@ -21,6 +21,10 @@ namespace EFCore.CodeFirst.DZS
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Initialisierer.Build();
+            #region Lazy loading Einstellung
+            //optionsBuilder.LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information)
+            //    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+            #endregion
             optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
         }
         #region SaveChanges Methode in DbKontext Klasse definieren
@@ -46,12 +50,14 @@ namespace EFCore.CodeFirst.DZS
             #region Tabelle umbenennen
             //modelBuilder.Entity<Produkt>().ToTable("ProduktTbl", "produkte");
             #endregion
+
             #region Property Vorgänge
             //modelBuilder.Entity<Produkt>().HasKey(p => p.ID);
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).IsRequired();
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(50);
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(150).IsFixedLength();
             #endregion
+
             #region In DbKontext Klasse mit Fluent API FK definieren
             //Wenn man FK speziell benenen will, soll man Fluent API verwenden.
 
@@ -62,6 +68,7 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().HasOne(k => k.ProduktEigenschaft).WithOne(p => p.Produkt).
             //    HasForeignKey<ProduktEigenschaft>(pe => pe.ID);
             #endregion
+
             #region Speziell Id definieren mit Fluent API
             //Many-To-Many
             //modelBuilder.Entity<Student>().HasMany(s => s.Lehrer)
@@ -70,6 +77,7 @@ namespace EFCore.CodeFirst.DZS
             //    tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
             //    tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
             #endregion
+
             #region Relationships Delete Behaviors
             #region Cascade
             //modelBuilder.Entity<Kategorie>().HasMany(p => p.Produkte).WithOne(k => k.Kategorie).HasForeignKey
@@ -88,19 +96,21 @@ namespace EFCore.CodeFirst.DZS
             //    (fk => fk.KategorieID).OnDelete(DeleteBehavior.SetNull);
             #endregion
             #endregion
+
             #region DatabaseGenerated Attribute
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).HasComputedColumnSql("[MwSt]*[Preis]");
             #endregion
+
             #region DatabaseGenerated Identity-Computed-None
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAdd();//Identity
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAddOrUpdate();//Computed
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedNever();//None
             #endregion
-            #region Related Data Load
-            #region Eager Loading Mit Fluent API
+           
+            #region Precision Einstellung(Preis Property(18,2))
             //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
             #endregion
-            #endregion
+           
             base.OnModelCreating(modelBuilder);
         }
     }

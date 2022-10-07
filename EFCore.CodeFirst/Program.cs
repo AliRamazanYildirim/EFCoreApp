@@ -345,10 +345,25 @@ using (var _kontext = new AppDBKontext())
     //    _kontext.ProduktEigenschaften.Where(p => p.ID == produkt.ID).First();
     //    //2.Weise (Best practice)
     //    _kontext.Entry(produkt).Reference(p => p.ProduktEigenschaft).Load();
-       
+
     //        Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
-        
+
     //}
+    #endregion
+    #region Lazy Loading 
+    //Navigationseigenschaften müssen virtuell sein, um die Lazy Loading-Funktion verwenden zu können.
+
+    //var kategorie = await _kontext.Kategorien.FirstAsync();
+    //Console.WriteLine("Kategorie wurde aufgerufen");
+    //var produkte=kategorie.Produkte;
+    
+
+    //foreach(var produkt in produkte)
+    //{
+    //    //N+1 Problem
+    //    var produktEigenschaft = produkt.ProduktEigenschaft;
+    //}
+    //Console.WriteLine("Die Transaktion ist vorbei");
     #endregion
     #endregion
 }

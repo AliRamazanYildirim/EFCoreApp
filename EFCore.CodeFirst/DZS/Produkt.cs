@@ -34,8 +34,8 @@ namespace EFCore.CodeFirst.DZS
         public int Vorrat { get; set; }
         public int Strichcode { get; set; }
         public int KategorieID { get; set; }
-        public Kategorie Kategorie { get; set; }
-        public ProduktEigenschaft ProduktEigenschaft { get; set; }
+        public virtual Kategorie Kategorie { get; set; }
+        public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }
         #region DatabaseGenerated Attribute
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         //public decimal MwStPreis { get; set; }
