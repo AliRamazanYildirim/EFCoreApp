@@ -356,7 +356,7 @@ using (var _kontext = new AppDBKontext())
     //var kategorie = await _kontext.Kategorien.FirstAsync();
     //Console.WriteLine("Kategorie wurde aufgerufen");
     //var produkte=kategorie.Produkte;
-    
+
 
     //foreach(var produkt in produkte)
     //{
@@ -364,6 +364,39 @@ using (var _kontext = new AppDBKontext())
     //    var produktEigenschaft = produkt.ProduktEigenschaft;
     //}
     //Console.WriteLine("Die Transaktion ist vorbei");
+    #endregion
+    #endregion
+    #region Inheritance(Übernahme)
+    #region TPH(Table-Per-Hierarchy)
+
+    //Die Datei aufrufen
+
+    var manager = _kontext.Manager.ToList();
+    var arbeiter = _kontext.Arbeiter.ToList();
+    var personal = _kontext.BasisPersonal.ToList();
+
+    personal.ForEach(a =>
+    {
+        switch(a)
+        {
+            case Manager manager:
+                Console.WriteLine($"Manager Einheit:{manager.Grad}");
+                break;
+                case Arbeiter arbeiter:
+                Console.WriteLine($"Arbeiter Einheit:{arbeiter.Gehalt}");
+
+                break;
+            default:
+                break;
+        }
+    });
+    //Die Datei hinzufügen
+
+    //_kontext.BasisPersonal.Add(new Manager() { VorName = "Ali", NachName = "Bozkurt", Alter = 23, Grad = 1 } );
+    //_kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Alparslan", NachName = "Osmanoglu", Alter = 23, Gehalt=4500 });
+    
+    _kontext.SaveChanges();
+
     #endregion
     #endregion
 }

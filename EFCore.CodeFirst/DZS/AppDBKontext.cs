@@ -11,9 +11,15 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        public DbSet<Produkt> Produkte { get; set; }
-        public DbSet<Kategorie> Kategorien { get; set; }
-        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<Manager>Manager { get; set; }
+        public DbSet<Arbeiter> Arbeiter { get; set; }
+        //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
+        //können wir die Tabellenstruktur pro Hierarchie verwenden.
+        public DbSet<BasisPersonal> BasisPersonal { get; set; }
+
+        //public DbSet<Produkt> Produkte { get; set; }
+        //public DbSet<Kategorie> Kategorien { get; set; }
+        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
 
@@ -21,7 +27,7 @@ namespace EFCore.CodeFirst.DZS
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Initialisierer.Build();
-            #region Lazy loading Einstellung
+            #region Lazy loading Einstellung (Logging)
             //optionsBuilder.LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information)
             //    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
             #endregion
