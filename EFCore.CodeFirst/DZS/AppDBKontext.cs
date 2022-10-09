@@ -13,10 +13,11 @@ namespace EFCore.CodeFirst.DZS
     {
         public DbSet<Manager>Manager { get; set; }
         public DbSet<Arbeiter> Arbeiter { get; set; }
+        #region TPH(Table-Per-Hierarcy)  
         //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
         //können wir die Tabellenstruktur pro Hierarchie verwenden.
         public DbSet<BasisPersonal> BasisPersonal { get; set; }
-
+        #endregion
         //public DbSet<Produkt> Produkte { get; set; }
         //public DbSet<Kategorie> Kategorien { get; set; }
         //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
@@ -112,11 +113,18 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedOnAddOrUpdate();//Computed
             //modelBuilder.Entity<Produkt>().Property(p => p.MwStPreis).ValueGeneratedNever();//None
             #endregion
-           
+
             #region Precision Einstellung(Preis Property(18,2))
             //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
             #endregion
-           
+
+            #region TPH(Table-Per-Type)
+            modelBuilder.Entity<BasisPersonal>().ToTable("Personal");
+            modelBuilder.Entity<Arbeiter>().ToTable("Arbeiter");
+            modelBuilder.Entity<Manager>().ToTable("Manager");
+
+            #endregion
+
             base.OnModelCreating(modelBuilder);
         }
     }

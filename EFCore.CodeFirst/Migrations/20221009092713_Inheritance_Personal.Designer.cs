@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221009084938_Inheritance_Personal")]
+    [Migration("20221009092713_Inheritance_Personal")]
     partial class Inheritance_Personal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,6 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<int>("Alter")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NachName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,9 +44,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("BasisPersonal");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BasisPersonal");
+                    b.ToTable("Personal", (string)null);
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Arbeiter", b =>
@@ -61,7 +55,7 @@ namespace EFCore.CodeFirst.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasDiscriminator().HasValue("Arbeiter");
+                    b.ToTable("Arbeiter", (string)null);
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Manager", b =>
@@ -71,7 +65,25 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<int>("Grad")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Manager");
+                    b.ToTable("Manager", (string)null);
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Arbeiter", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DZS.BasisPersonal", null)
+                        .WithOne()
+                        .HasForeignKey("EFCore.CodeFirst.DZS.Arbeiter", "ID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Manager", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DZS.BasisPersonal", null)
+                        .WithOne()
+                        .HasForeignKey("EFCore.CodeFirst.DZS.Manager", "ID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

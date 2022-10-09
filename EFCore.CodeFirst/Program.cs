@@ -367,7 +367,37 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
     #region Inheritance(Übernahme)
+
     #region TPH(Table-Per-Hierarchy)
+
+    //Die Datei aufrufen
+
+    //var manager = _kontext.Manager.ToList();
+    //var arbeiter = _kontext.Arbeiter.ToList();
+    //var personal = _kontext.BasisPersonal.ToList();
+
+    //personal.ForEach(a =>
+    //{
+    //    switch(a)
+    //    {
+    //        case Manager manager:
+    //            Console.WriteLine($"Manager Einheit:{manager.Grad}");
+    //            break;
+    //            case Arbeiter arbeiter:
+    //            Console.WriteLine($"Arbeiter Einheit:{arbeiter.Gehalt}");
+
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //});
+    //Die Datei hinzufügen
+
+    //_kontext.BasisPersonal.Add(new Manager() { VorName = "Ali", NachName = "Bozkurt", Alter = 23, Grad = 1 } );
+    //_kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Alparslan", NachName = "Osmanoglu", Alter = 23, Gehalt=4500 });
+    // _kontext.SaveChanges();
+    #endregion
+    #region TPT(Table-Per-Type)
 
     //Die Datei aufrufen
 
@@ -377,12 +407,12 @@ using (var _kontext = new AppDBKontext())
 
     personal.ForEach(a =>
     {
-        switch(a)
+        switch (a)
         {
             case Manager manager:
                 Console.WriteLine($"Manager Einheit:{manager.Grad}");
                 break;
-                case Arbeiter arbeiter:
+            case Arbeiter arbeiter:
                 Console.WriteLine($"Arbeiter Einheit:{arbeiter.Gehalt}");
 
                 break;
@@ -390,15 +420,18 @@ using (var _kontext = new AppDBKontext())
                 break;
         }
     });
-    //Die Datei hinzufügen
 
-    //_kontext.BasisPersonal.Add(new Manager() { VorName = "Ali", NachName = "Bozkurt", Alter = 23, Grad = 1 } );
-    //_kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Alparslan", NachName = "Osmanoglu", Alter = 23, Gehalt=4500 });
-    
+    //_kontext.Manager.Add(new Manager() { VorName = "Ali", NachName = "Bozkurt", Alter = 23, Grad = 1 } );
+    //_kontext.Arbeiter.Add(new Arbeiter() { VorName = "Alparslan", NachName = "Bozkurt", Alter = 23, Gehalt=4500 });
+
+    _kontext.BasisPersonal.Add(new Manager() { VorName = "Elif", NachName = "Bozkurt", Alter = 23, Grad = 1 });
+    _kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Sare", NachName = "Bozkurt", Alter = 23, Gehalt = 4500 });
+
+
     _kontext.SaveChanges();
-
     #endregion
     #endregion
+    
 }
 
 
