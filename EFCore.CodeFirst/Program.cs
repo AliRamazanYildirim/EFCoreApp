@@ -55,6 +55,7 @@ using (var _kontext = new AppDBKontext())
 
     //_kontext.SaveChanges();
     #endregion
+
     #region DbSet Methoden mit Beispiele verwenden
     //DbSet Methoden
 
@@ -82,10 +83,7 @@ using (var _kontext = new AppDBKontext())
     //produkt.Vorrat = 300;
     //Console.WriteLine($"Zustand:{_kontext.Entry(produkt).State}");
     #endregion
-    #region EF Core Configuration ?
 
-
-    #endregion
     #region One-To-Many Datei hinzufügen
     //var kategorie = new Kategorie()
     //{
@@ -113,6 +111,7 @@ using (var _kontext = new AppDBKontext())
     //_kontext.SaveChanges();
     //Console.WriteLine("Die Datei wurde gespeichert!");
     #endregion
+
     #region One-To-One Datei hinzufügen
     //Produkt -->Parent(Principal)
     //ProduktEigenschaft -->Childed(Dependent)
@@ -160,6 +159,7 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Die Datei wurde gespeichert!");
     #endregion
     #endregion
+
     #region Many-To-Many Datei hinzufügen
 
     #region 1.Weise
@@ -208,6 +208,7 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Die Datei wurde gespeichert!");
     #endregion
     #endregion
+
     #region Relationships Delete Behaviors
     #region Cascade
     //var kategorie =new Kategorie() { Name="Druckbleistift",Produkte=new List<Produkt>()
@@ -272,6 +273,7 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Datei wurde gelöscht!");
     #endregion
     #endregion
+
     #region DatabaseGenerated Attribute
     //_kontext.Produkte.Add(new()
     //{
@@ -283,6 +285,7 @@ using (var _kontext = new AppDBKontext())
     //_kontext.SaveChanges();
     //Console.WriteLine("Das Produkt wurde gespeichert!");
     #endregion
+
     #region Related Data Load
     #region Eager Loading
 
@@ -366,8 +369,8 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Die Transaktion ist vorbei");
     #endregion
     #endregion
-    #region Inheritance(Übernahme)
 
+    #region Inheritance(Übernahme
     #region TPH(Table-Per-Hierarchy)
 
     //Die Datei aufrufen
@@ -401,34 +404,36 @@ using (var _kontext = new AppDBKontext())
 
     //Die Datei aufrufen
 
-    var manager = _kontext.Manager.ToList();
-    var arbeiter = _kontext.Arbeiter.ToList();
-    var personal = _kontext.BasisPersonal.ToList();
+    //var manager = _kontext.Manager.ToList();
+    //var arbeiter = _kontext.Arbeiter.ToList();
+    //var personal = _kontext.BasisPersonal.ToList();
 
-    personal.ForEach(a =>
-    {
-        switch (a)
-        {
-            case Manager manager:
-                Console.WriteLine($"Manager Einheit:{manager.Grad}");
-                break;
-            case Arbeiter arbeiter:
-                Console.WriteLine($"Arbeiter Einheit:{arbeiter.Gehalt}");
+    //personal.ForEach(a =>
+    //{
+    //    switch (a)
+    //    {
+    //        case Manager manager:
+    //            Console.WriteLine($"Manager Einheit:{manager.Grad}");
+    //            break;
+    //        case Arbeiter arbeiter:
+    //            Console.WriteLine($"Arbeiter Einheit:{arbeiter.Gehalt}");
 
-                break;
-            default:
-                break;
-        }
-    });
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //});
 
     //_kontext.Manager.Add(new Manager() { VorName = "Ali", NachName = "Bozkurt", Alter = 23, Grad = 1 } );
     //_kontext.Arbeiter.Add(new Arbeiter() { VorName = "Alparslan", NachName = "Bozkurt", Alter = 23, Gehalt=4500 });
 
-    _kontext.BasisPersonal.Add(new Manager() { VorName = "Elif", NachName = "Bozkurt", Alter = 23, Grad = 1 });
-    _kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Sare", NachName = "Bozkurt", Alter = 23, Gehalt = 4500 });
+    //Man kann sowohl mit obene Klassen als auch mit BasisPersonal Klasse Datei hinzufügen
+
+    //_kontext.BasisPersonal.Add(new Manager() { VorName = "Elif", NachName = "Bozkurt", Alter = 23, Grad = 1 });
+    //_kontext.BasisPersonal.Add(new Arbeiter() { VorName = "Sare", NachName = "Bozkurt", Alter = 23, Gehalt = 4500 });
 
 
-    _kontext.SaveChanges();
+    //_kontext.SaveChanges();
     #endregion
     #endregion
     

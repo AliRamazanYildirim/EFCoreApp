@@ -11,16 +11,18 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        public DbSet<Manager>Manager { get; set; }
-        public DbSet<Arbeiter> Arbeiter { get; set; }
+        //public DbSet<Manager>Manager { get; set; }
+        //public DbSet<Arbeiter> Arbeiter { get; set; }
         #region TPH(Table-Per-Hierarcy)  
         //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
         //können wir die Tabellenstruktur pro Hierarchie verwenden.
-        public DbSet<BasisPersonal> BasisPersonal { get; set; }
+        //public DbSet<BasisPersonal> BasisPersonal { get; set; }
         #endregion
-        //public DbSet<Produkt> Produkte { get; set; }
-        //public DbSet<Kategorie> Kategorien { get; set; }
-        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+
+        public DbSet<Produkt> Produkte { get; set; }
+        public DbSet<Kategorie> Kategorien { get; set; }
+        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
 
@@ -54,12 +56,13 @@ namespace EFCore.CodeFirst.DZS
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region EF Core Configuration 
             #region Tabelle umbenennen
             //modelBuilder.Entity<Produkt>().ToTable("ProduktTbl", "produkte");
             #endregion
 
-            #region Property Vorgänge
-            //modelBuilder.Entity<Produkt>().HasKey(p => p.ID);
+            #region EF Core Configuration (Property Vorgänge) 
+            //modelBuilder.Entity<Produkt>().HasKey(p => p.Produkt_ID); //Speziell benennen
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).IsRequired();
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(50);
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(150).IsFixedLength();
@@ -83,6 +86,7 @@ namespace EFCore.CodeFirst.DZS
             //    .UsingEntity<Dictionary<string, object>>("StudentLehrerManyToMany",
             //    tbl => tbl.HasOne<Lehrer>().WithMany().HasForeignKey("Lehrer_ID").HasConstraintName("FK_LehrerID"),
             //    tbl=>tbl.HasOne<Student>().WithMany().HasForeignKey("Student_ID").HasConstraintName("FK_StudentID"));
+            #endregion
             #endregion
 
             #region Relationships Delete Behaviors
@@ -119,9 +123,9 @@ namespace EFCore.CodeFirst.DZS
             #endregion
 
             #region TPH(Table-Per-Type)
-            modelBuilder.Entity<BasisPersonal>().ToTable("Personal");
-            modelBuilder.Entity<Arbeiter>().ToTable("Arbeiter");
-            modelBuilder.Entity<Manager>().ToTable("Manager");
+            //modelBuilder.Entity<BasisPersonal>().ToTable("Personal");
+            //modelBuilder.Entity<Arbeiter>().ToTable("Arbeiter");
+            //modelBuilder.Entity<Manager>().ToTable("Manager");
 
             #endregion
 

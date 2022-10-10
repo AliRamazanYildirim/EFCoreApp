@@ -10,23 +10,28 @@ using System.Threading.Tasks;
 
 namespace EFCore.CodeFirst.DZS
 {
-    //[Table("ProduktTb", Schema="produkte")]
+    #region Tabelle benennen
+    //[Table("ProduktTbl", Schema="produkte")]
+    #endregion
     public class Produkt
     {
         #region Spalte umbenennen
         //[Column(Order = 1)]//Dies ist erforderlich, wenn Sie eine neue Tabelle erstellen, um eine Spaltensortierung durchzuführen. Andernfalls ist diese Operation für eine vorhandene Tabelle nicht gültig.
         #endregion
+
+        #region Spalte umbenennen
+        //[Column("markenName", TypeName ="nvarchar(50) oder decimal(18,2)", Order = 2)]
+        //[Required]
+        //[StringLength(150,MinimumLength =150)] //Wenn man sowohl bei der Datenbank auch als
+        //bei  FluentValidation Zeichenlänge verwenden möchte, soll hier es definieren
+        //public string Name { get; set; }
+        #endregion
+
         #region DatabaseGeneratedOption.None
         //Dieses Attribut kann verwendet werden, wenn der ID-Wert nicht erhöht werden soll.
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //public int ID { get; set; }
         #endregion
-        #region Spalte umbenennen
-        //[Column("markenName", Order = 2)]
-        //[Required]
-        //[StringLength(150,MinimumLength =150)] //Wenn man sowohl bei der Datenbank auch als bei  FluentValidation Zeichenlänge verwenden möchte, soll hier es definieren
-        #endregion
-
         public int ID { get; set; }
         public string Name { get; set; }
         [Precision(9,2)]
