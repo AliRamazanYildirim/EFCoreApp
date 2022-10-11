@@ -370,7 +370,7 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
 
-    #region Inheritance(Übernahme
+    #region Inheritance(Übernahme)
     #region TPH(Table-Per-Hierarchy)
 
     //Die Datei aufrufen
@@ -436,7 +436,7 @@ using (var _kontext = new AppDBKontext())
     //_kontext.SaveChanges();
     #endregion
     #endregion
-    
+
 }
 
 
