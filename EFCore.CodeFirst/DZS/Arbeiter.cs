@@ -15,4 +15,11 @@ namespace EFCore.CodeFirst.DZS
         public decimal Gehalt { get; set; }
         
     }
+    #region Arbeiter: BasisPersonal(Mit Inheritance)
+    //public class Arbeiter : BasisPersonal
+    //{
+    //    [Precision(18, 2)]
+    //    public decimal Gehalt { get; set; }
+    //}
+    #endregion
 }

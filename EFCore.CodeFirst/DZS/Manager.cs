@@ -13,4 +13,10 @@ namespace EFCore.CodeFirst.DZS
         public int Grad { get; set; }
 
     }
+    #region Manager : BasisPersonal(Mit Inheritance)
+    //public class Manager : BasisPersonal
+    //{
+    //    public int Grad { get; set; }
+    //}
+    #endregion
 }
