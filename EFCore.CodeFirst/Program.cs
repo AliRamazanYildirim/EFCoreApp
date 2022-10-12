@@ -506,8 +506,6 @@ using (var _kontext = new AppDBKontext())
 
 
     //});
-    //_kontext.SaveChanges();
-    //Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
 
     //_kontext.Produkte.Where(ind => ind.Name == "Aspekte Neu B2").Select(ind => new
     //{
@@ -516,6 +514,8 @@ using (var _kontext = new AppDBKontext())
     //    vorrat = ind.Vorrat,
     //    strichCode = ind.Strichcode
     //});
+    //_kontext.SaveChanges();
+    //Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
 
     #endregion
 }
