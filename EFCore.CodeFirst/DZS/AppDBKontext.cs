@@ -21,10 +21,10 @@ namespace EFCore.CodeFirst.DZS
         #endregion
 
         public DbSet<Produkt> Produkte { get; set; }
-        public DbSet<Kategorie> Kategorien { get; set; }
-        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
-        public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
-        public DbSet<Personal> Personal { get; set; }
+        //public DbSet<Kategorie> Kategorien { get; set; }
+        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
+        //public DbSet<Personal> Personal { get; set; }
 
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
@@ -149,8 +149,17 @@ namespace EFCore.CodeFirst.DZS
             //});
 
             #endregion
+
             #region Keyless mit Fluent API
             //modelBuilder.Entity<SpeziellesProdukt>().HasNoKey();
+            #endregion
+
+            #region NotMapped mit Fluent API
+            //modelBuilder.Entity<Produkt>().Ignore(sc => sc.Strichcode);
+            //modelBuilder.Entity<Produkt>().Property(n => n.Name).IsUnicode(false).HasMaxLength(200);//varchar 
+            //modelBuilder.Entity<Produkt>().Property(u => u.Url).HasColumnType("nvarchar(200)")
+            //    .HasColumnName("UrlName").HasColumnOrder(7);
+            //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
             #endregion
             #endregion
 

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221012114722_Initiale_Neu_Personal")]
-    partial class Initiale_Neu_Personal
+    [Migration("20221012123716_Initiale_Neu_Produkt")]
+    partial class Initiale_Neu_Produkt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,23 +37,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Kategorien");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.Personal", b =>
-                {
-                    b.Property<int>("Alter")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NachName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Personal");
+                    b.ToTable("Kategorie");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
@@ -69,14 +53,17 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<decimal>("Preis")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Strichcode")
-                        .HasColumnType("int");
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("UrlName")
+                        .HasColumnOrder(7);
 
                     b.Property<int>("Vorrat")
                         .HasColumnType("int");
@@ -105,30 +92,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProduktEigenschaften");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.SpeziellesProdukt", b =>
-                {
-                    b.Property<int>("Grösse")
-                        .HasColumnType("int");
-
-                    b.Property<string>("KategorieName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Preis")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Produkt_ID")
-                        .HasColumnType("int");
-
-                    b.ToTable("SpeziellesProdukte");
+                    b.ToTable("ProduktEigenschaft");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>

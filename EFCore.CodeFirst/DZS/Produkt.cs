@@ -15,6 +15,17 @@ namespace EFCore.CodeFirst.DZS
     #endregion
     public class Produkt
     {
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public decimal Preis { get; set; }
+        public int Vorrat { get; set; }
+        public int Strichcode { get; set; }
+        public string Url { get; set; }
+        public int KategorieID { get; set; }
+        public  Kategorie Kategorie { get; set; }
+        public  ProduktEigenschaft ProduktEigenschaft { get; set; }
+
         #region Spalte umbenennen
         //[Column(Order = 1)]//Dies ist erforderlich, wenn Sie eine neue Tabelle erstellen, um eine Spaltensortierung durchzuführen. Andernfalls ist diese Operation für eine vorhandene Tabelle nicht gültig.
         #endregion
@@ -32,32 +43,49 @@ namespace EFCore.CodeFirst.DZS
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //public int ID { get; set; }
         #endregion
-        public int ID { get; set; }
-        public string Name { get; set; }
-        [Precision(9,2)]
-        public decimal Preis { get; set; }
-        public int Vorrat { get; set; }
-        public int Strichcode { get; set; }
-        public int KategorieID { get; set; }
-        public virtual Kategorie Kategorie { get; set; }
-        public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }
+
         #region DatabaseGenerated Attribute
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         //public decimal MwStPreis { get; set; }
         //public int MwSt { get; set; }
         //public DateTime ErstellungsDatum { get; set; } = DateTime.Now;
         #endregion
+
         #region 3.Weise mit ForeignKey Attribute FK erstellen
         //public int Kategorie_ID { get; set; }
         ////Navigation property
         //[ForeignKey("Kategorie_ID")]
         //public Kategorie Kategorie { get; set; }
         #endregion
+
         #region Setnull-Verhalten 
         //Um das Setnull-Verhalten zu verwenden, muss die Kategorie-ID ein Fragezeichen haben, damit sie leer sein kann
         //public int? KategorieID { get; set; }
         //public Kategorie? Kategorie { get; set; }
         //public ProduktEigenschaft ProduktEigenschaft { get; set; }
         #endregion
+
+        #region Lazy Loading definieren
+        //public virtual Kategorie Kategorie { get; set; }
+        //public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }
+        #endregion
+
+        #region Entity Properties(Model)
+        #region Unicode
+        //[Unicode(false)]//varchar
+        //public string Name { get; set; }
+        #endregion
+
+        #region NotMapped
+        //[NotMapped]
+        //public int Strichcode { get; set; }
+        #endregion
+
+        #region Column
+        //[Column("UrlName",TypeName ="nvarchar(200)",Order=7)]
+        //public string Url { get; set; }
+        #endregion
+        #endregion
+
     }
 }

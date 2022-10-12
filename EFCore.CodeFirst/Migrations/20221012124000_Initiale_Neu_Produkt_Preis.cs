@@ -4,7 +4,7 @@
 
 namespace EFCore.CodeFirst.Migrations
 {
-    public partial class Fluent_Owned : Migration
+    public partial class Initiale_Neu_Produkt_Preis : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

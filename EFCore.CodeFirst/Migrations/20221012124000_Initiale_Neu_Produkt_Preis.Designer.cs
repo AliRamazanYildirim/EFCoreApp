@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221012110154_Initiale_Neu")]
-    partial class Initiale_Neu
+    [Migration("20221012124000_Initiale_Neu_Produkt_Preis")]
+    partial class Initiale_Neu_Produkt_Preis
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Kategorien");
+                    b.ToTable("Kategorie");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
@@ -53,14 +53,18 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<decimal>("Preis")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Strichcode")
-                        .HasColumnType("int");
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("UrlName")
+                        .HasColumnOrder(7);
 
                     b.Property<int>("Vorrat")
                         .HasColumnType("int");
@@ -89,7 +93,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProduktEigenschaften");
+                    b.ToTable("ProduktEigenschaft");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
