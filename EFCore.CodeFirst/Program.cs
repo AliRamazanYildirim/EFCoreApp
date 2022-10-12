@@ -330,7 +330,7 @@ using (var _kontext = new AppDBKontext())
     //One-To-Many (Collection)
 
     //var kategorie = _kontext.Kategorien.First();
-    //if(kategorie != null)
+    //if (kategorie != null)
     //{
     //    _kontext.Entry(kategorie).Collection(p => p.Produkte).Load();
     //    kategorie.Produkte.ForEach(produkt =>
@@ -444,10 +444,20 @@ using (var _kontext = new AppDBKontext())
 
     //};
 
-    //kategorie.Produkte.Add(new(){Name = "Aspekte Neu B2",Preis = 45,Vorrat = 100,Strichcode = 1452,
-    //    ProduktEigenschaft = new(){Farbe = "Rot",Grösse = 10,Breite = 10},
+    //kategorie.Produkte.Add(new()
+    //{
+    //    Name = "Aspekte Neu B2",
+    //    Preis = 45,
+    //    Vorrat = 100,
+    //    Strichcode = 1452,
+    //    ProduktEigenschaft = new() { Farbe = "Rot", Grösse = 10, Breite = 10 },
     //});
-    //kategorie.Produkte.Add(new(){Name = "Aspekte Neu B1",Preis = 40,Vorrat = 100,Strichcode = 1453,
+    //kategorie.Produkte.Add(new()
+    //{
+    //    Name = "Aspekte Neu B1",
+    //    Preis = 40,
+    //    Vorrat = 100,
+    //    Strichcode = 1453,
     //    ProduktEigenschaft = new() { Farbe = "Grün", Grösse = 10, Breite = 10 },
     //});
 
@@ -466,8 +476,48 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("Die Datei wurde gespeichert!");
 
     #endregion
-    
-    });
+
+    #region Mit Check Constraints Preis Behandlung leiten
+    //_kontext.Produkte.Add(new()
+    //{
+    //    Name = "Aspekte Neu B2",
+    //    Preis = 50,
+    //    RabattPreis = 10,
+    //    Vorrat = 100,
+    //    Strichcode = 158831,
+    //    Url = "adfsafdlkslfkdsf"
+
+
+    //});
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Das Buch wurde gespeichert!");
+    #endregion
+
+    #region  Mit Index Datei aufrufen
+
+    //Produkt produkt = (new()
+    //{
+    //    Name = "Aspekte Neu B2",
+    //    Preis = 40,
+    //    RabattPreis = 10,
+    //    Vorrat = 100,
+    //    Strichcode = 158831,
+    //    Url = "adfsafdlkslfkdsf"
+
+
+    //});
+    //_kontext.SaveChanges();
+    //Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
+
+    //_kontext.Produkte.Where(ind => ind.Name == "Aspekte Neu B2").Select(ind => new
+    //{
+    //    name = ind.Name,
+    //    preis = ind.Preis,
+    //    vorrat = ind.Vorrat,
+    //    strichCode = ind.Strichcode
+    //});
+
+    #endregion
 }
 
 

@@ -164,16 +164,23 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
             #endregion
 
-            #region Mit Fluent API Index definieren
+            #region Mit Fluent API Index definieren???
             // Mit diesem Code wird bei Db mehr Speicherplatz verwendet
 
             // _kontext.Produkte.Where(ind=>ind.Name=="Aspekte Neu B1").Select(ind=>new {name=ind.Name,preis=ind.Preis,
-            //vorrat = ind.Vorrat, strichCode = ind.Strichcode
-            //modelBuilder.Entity<Produkt>().HasIndex(ind => ind.Name).IncludeProperties(ind=> new {ind.Name,ind.Preis,
-            //    ind.Strichcode});
+            //vorrat = ind.Vorrat, strichCode = ind.Strichcode});
 
-            //modelBuilder.Entity<Produkt>().HasIndex(i => new {i.Name,i.Preis});
-            
+            //modelBuilder.Entity<Produkt>().HasIndex(ind => ind.Name).IncludeProperties(ind => new
+            //{
+            //    ind.Preis,
+            //    ind.Vorrat,
+            //    ind.Strichcode
+            //});
+
+            modelBuilder.Entity<Produkt>().HasCheckConstraint("RabattPreisCheck", "[Preis]>[RabattPreis]");
+
+            //modelBuilder.Entity<Produkt>().HasIndex(i => new {i.Name,i.Preis}); 
+
             #endregion
             #endregion
 
