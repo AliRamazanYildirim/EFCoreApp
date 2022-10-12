@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace EFCore.CodeFirst.DZS
 {
+    #region Mit Data Annotations Attributes Index Erstellen
+    //[Index(nameof(Name),nameof(Preis))] -> Composite Index
+    #endregion
+
     #region Tabelle benennen
     //[Table("ProduktTbl", Schema="produkte")]
     #endregion

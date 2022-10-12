@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient.Server;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -21,8 +22,9 @@ namespace EFCore.CodeFirst.DZS
         #endregion
 
         public DbSet<Produkt> Produkte { get; set; }
-        //public DbSet<Kategorie> Kategorien { get; set; }
-        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<Kategorie> Kategorien { get; set; }
+        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
         //public DbSet<Personal> Personal { get; set; }
 
@@ -160,6 +162,18 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(u => u.Url).HasColumnType("nvarchar(200)")
             //    .HasColumnName("UrlName").HasColumnOrder(7);
             //modelBuilder.Entity<Produkt>().Property(p => p.Preis).HasPrecision(18, 2);
+            #endregion
+
+            #region Mit Fluent API Index definieren
+            // Mit diesem Code wird bei Db mehr Speicherplatz verwendet
+
+            // _kontext.Produkte.Where(ind=>ind.Name=="Aspekte Neu B1").Select(ind=>new {name=ind.Name,preis=ind.Preis,
+            //vorrat = ind.Vorrat, strichCode = ind.Strichcode
+            //modelBuilder.Entity<Produkt>().HasIndex(ind => ind.Name).IncludeProperties(ind=> new {ind.Name,ind.Preis,
+            //    ind.Strichcode});
+
+            //modelBuilder.Entity<Produkt>().HasIndex(i => new {i.Name,i.Preis});
+            
             #endregion
             #endregion
 
