@@ -437,6 +437,35 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
 
+    #region Convention Coding
+    //var kategorie = new Kategorie()
+    //{
+    //    Name = "Bücher"
+
+    //};
+
+    //kategorie.Produkte.Add(new(){Name = "Aspekte Neu B2",Preis = 45,Vorrat = 100,Strichcode = 1452,
+    //    ProduktEigenschaft = new(){Farbe = "Rot",Grösse = 10,Breite = 10},
+    //});
+    //kategorie.Produkte.Add(new(){Name = "Aspekte Neu B1",Preis = 40,Vorrat = 100,Strichcode = 1453,
+    //    ProduktEigenschaft = new() { Farbe = "Grün", Grösse = 10, Breite = 10 },
+    //});
+
+    //_kontext.Kategorien.Add(kategorie);
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+    #endregion
+    #region Keyless mit RawSql
+    // Mit Keyless keyword kann man nicht CRUD Transaktionen ausführen
+    //_kontext.Personal.Add(new Personal() { VorName = "Ali", NachName = "Bozkurt", Alter = 22 });
+    //var speziellesProdukte = _kontext.SpeziellesProdukte.FromSqlRaw(@"select p.ID 'Produkt_ID', k.Name 'KategorieName',
+    //p.Name,p.Preis,pe.Grösse from Produkte p 
+    //join ProduktEigenschaften pe on p.ID=pe.ID
+    //join Kategorien k on p.KategorieID=k.ID").ToList();
+    //Console.WriteLine("Die Datei wurde gespeichert!");
+
+    #endregion
+
 }
 
 

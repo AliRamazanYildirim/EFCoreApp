@@ -11,8 +11,8 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        public DbSet<Manager> Manager { get; set; }
-        public DbSet<Arbeiter> Arbeiter { get; set; }
+        //public DbSet<Manager> Manager { get; set; }
+        //public DbSet<Arbeiter> Arbeiter { get; set; }
 
         #region TPH(Table-Per-Hierarcy)  
         //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
@@ -20,9 +20,11 @@ namespace EFCore.CodeFirst.DZS
         //public DbSet<BasisPersonal> BasisPersonal { get; set; }
         #endregion
 
-        //public DbSet<Produkt> Produkte { get; set; }
-        //public DbSet<Kategorie> Kategorien { get; set; }
-        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<Produkt> Produkte { get; set; }
+        public DbSet<Kategorie> Kategorien { get; set; }
+        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
+        public DbSet<Personal> Personal { get; set; }
 
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
@@ -133,19 +135,22 @@ namespace EFCore.CodeFirst.DZS
             #region Model
             #region Owned mit Fluent API
 
-            modelBuilder.Entity<Manager>().OwnsOne(m => m.Personal,p=>
-            {
-                p.Property(proName => proName.VorName).HasColumnName("VorName");
-                p.Property(proName => proName.NachName).HasColumnName("NachName");
-                p.Property(proName => proName.Alter).HasColumnName("Alter");
-            });
-            modelBuilder.Entity<Arbeiter>().OwnsOne(a => a.Personal,p=>
-            {
-                p.Property(proName => proName.VorName).HasColumnName("VorName");
-                p.Property(proName => proName.NachName).HasColumnName("NachName");
-                p.Property(proName => proName.Alter).HasColumnName("Alter");
-            });
+            //modelBuilder.Entity<Manager>().OwnsOne(m => m.Personal,p=>
+            //{
+            //    p.Property(proName => proName.VorName).HasColumnName("VorName");
+            //    p.Property(proName => proName.NachName).HasColumnName("NachName");
+            //    p.Property(proName => proName.Alter).HasColumnName("Alter");
+            //});
+            //modelBuilder.Entity<Arbeiter>().OwnsOne(a => a.Personal,p=>
+            //{
+            //    p.Property(proName => proName.VorName).HasColumnName("VorName");
+            //    p.Property(proName => proName.NachName).HasColumnName("NachName");
+            //    p.Property(proName => proName.Alter).HasColumnName("Alter");
+            //});
 
+            #endregion
+            #region Keyless mit Fluent API
+            //modelBuilder.Entity<SpeziellesProdukt>().HasNoKey();
             #endregion
             #endregion
 

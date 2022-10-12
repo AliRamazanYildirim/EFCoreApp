@@ -3,6 +3,7 @@ using EFCore.CodeFirst.DZS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    partial class AppDBKontextModelSnapshot : ModelSnapshot
+    [Migration("20221012110154_Initiale_Neu")]
+    partial class Initiale_Neu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,22 +38,6 @@ namespace EFCore.CodeFirst.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Kategorien");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.Personal", b =>
-                {
-                    b.Property<int>("Alter")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NachName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Personal");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
@@ -104,29 +90,6 @@ namespace EFCore.CodeFirst.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ProduktEigenschaften");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DZS.SpeziellesProdukt", b =>
-                {
-                    b.Property<int>("Grösse")
-                        .HasColumnType("int");
-
-                    b.Property<string>("KategorieName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Preis")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Produkt_ID")
-                        .HasColumnType("int");
-
-                    b.ToTable("SpeziellesProdukte");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>

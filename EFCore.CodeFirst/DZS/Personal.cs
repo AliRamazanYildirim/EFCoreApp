@@ -10,6 +10,7 @@ namespace EFCore.CodeFirst.DZS
     #region Mit Data Annotation attribute Owned definieren
     //[Owned]
     #endregion
+    //[Keyless]
     public class Personal
     {
         //Wenn man mit Owned Entity Types  die Klassen teilen möchte, soll man nicht bei Owned Klasse ID property verwenden
