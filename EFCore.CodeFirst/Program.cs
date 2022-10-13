@@ -503,7 +503,7 @@ using (var _kontext = new AppDBKontext())
     //    Vorrat = 100,
     //    Strichcode = 158831,
     //    Url = "adfsafdlkslfkdsf"
-        
+
 
     //});
     //if (produkt.RabattPreis > produkt.Preis)
@@ -521,8 +521,29 @@ using (var _kontext = new AppDBKontext())
     //_kontext.SaveChanges();
     //Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
 
-        #endregion
+    #endregion
+
+    #region Query (Client - Server Evaluation)
+    //Wie unten geschrieben kann man nicht Abfrage machen, weil Ef Core kann nicht wahrnehmen,ob es eine Abfrage ist.
+    //var leiter = _kontext.Leiter.Where(l => NummerFormat(l.Nummer) == "05054147898").ToList();
+
+    //var leiter = _kontext.Leiter.ToList().Where(l => NummerFormat(l.Nummer) == "5054147898").ToList();
+
+    //Local Function kann man nur als Client wie unten geschrieben verwenden.
+
+    //var leiter = _kontext.Leiter.ToList().Select(l => new { LeiterName = l.Name,
+    //    LeiterNummer = NummerFormat(l.Nummer) }).ToList();
+
+
+    //_kontext.Leiter.Add(new Leiter() { Name = "Ali", Nummer = "05054147898" });
+    //_kontext.Leiter.Add(new Leiter() { Name = "Elif", Nummer = "05354147898" });
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Der Personal wurde gespeichert");
+    #endregion
 }
-
-
-
+#region Benutzerdefinierte Methode für Abfrage(Client)
+//string NummerFormat(string nummer)
+//{
+//    return nummer.Substring(1, nummer.Length - 1);
+//}
+#endregion

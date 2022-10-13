@@ -21,15 +21,17 @@ namespace EFCore.CodeFirst.DZS
         //public DbSet<BasisPersonal> BasisPersonal { get; set; }
         #endregion
 
-        public DbSet<Produkt> Produkte { get; set; }
-        public DbSet<Kategorie> Kategorien { get; set; }
-        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        //public DbSet<Produkt> Produkte { get; set; }
+        //public DbSet<Kategorie> Kategorien { get; set; }
+        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
         //public DbSet<Personal> Personal { get; set; }
 
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
+        public DbSet<Leiter> Leiter { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -177,7 +179,7 @@ namespace EFCore.CodeFirst.DZS
             //    ind.Strichcode
             //});
 
-            modelBuilder.Entity<Produkt>().HasCheckConstraint("RabattPreisCheck", "[Preis]>[RabattPreis]");
+            //modelBuilder.Entity<Produkt>().HasCheckConstraint("RabattPreisCheck", "[Preis]>[RabattPreis]");
 
             //modelBuilder.Entity<Produkt>().HasIndex(i => new {i.Name,i.Preis}); 
 
