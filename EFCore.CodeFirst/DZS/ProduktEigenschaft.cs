@@ -14,7 +14,7 @@ namespace EFCore.CodeFirst.DZS
         public int Grösse { get; set; }
         public int Breite { get; set; }
         public string Farbe { get; set; }
-        public virtual Produkt Produkt { get; set; }
+        //public virtual Produkt Produkt { get; set; }
         #region Mit ForeignKey Attribute FK erstellen
         //public int ProduktID { get; set; }
         //[ForeignKey("ProduktID")]

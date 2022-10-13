@@ -15,33 +15,31 @@ namespace EFCore.CodeFirst.DZS
         //public DbSet<Manager> Manager { get; set; }
         //public DbSet<Arbeiter> Arbeiter { get; set; }
 
-        #region TPH(Table-Per-Hierarcy)  
-        //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
-        //können wir die Tabellenstruktur pro Hierarchie verwenden.
-        //public DbSet<BasisPersonal> BasisPersonal { get; set; }
-        #endregion
-
-        //public DbSet<Produkt> Produkte { get; set; }
-        //public DbSet<Kategorie> Kategorien { get; set; }
-        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<Produkt> Produkte { get; set; }
+        public DbSet<Kategorie> Kategorien { get; set; }
+        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
         //public DbSet<Personal> Personal { get; set; }
 
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
-        public DbSet<Leiter> Leiter { get; set; }
+        //public DbSet<Leiter> Leiter { get; set; }
 
-
+        #region TPH(Table-Per-Hierarcy)  
+        //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
+        //können wir die Tabellenstruktur pro Hierarchie verwenden.
+        //public DbSet<BasisPersonal> BasisPersonal { get; set; }
+        #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Initialisierer.Build();
             #region Lazy loading Einstellung (Logging)
-            //optionsBuilder.LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information)
-            //    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+                .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
             #endregion
-            optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+            //optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
         }
         #region SaveChanges Methode in DbKontext Klasse definieren
         //public override int SaveChanges()

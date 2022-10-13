@@ -3,6 +3,7 @@
 using EFCore.CodeFirst;
 using EFCore.CodeFirst.DZS;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 Initialisierer.Build();
 using (var _kontext = new AppDBKontext())
@@ -523,6 +524,8 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
 
+    #region Query (Abfrage)
+
     #region Query (Client - Server Evaluation)
     //Wie unten geschrieben kann man nicht Abfrage machen, weil Ef Core kann nicht wahrnehmen,ob es eine Abfrage ist.
     //var leiter = _kontext.Leiter.Where(l => NummerFormat(l.Nummer) == "05054147898").ToList();
@@ -539,6 +542,64 @@ using (var _kontext = new AppDBKontext())
     //_kontext.Leiter.Add(new Leiter() { Name = "Elif", Nummer = "05354147898" });
     //_kontext.SaveChanges();
     //Console.WriteLine("Der Personal wurde gespeichert");
+    #endregion
+
+    #region Inner Join
+
+    //1.Weise(Zu Dritt Table erstellen)
+
+    //var resultat = _kontext.Kategorien.Join(_kontext.Produkte, k => k.ID, p => p.KategorieID, (k, p) => new { k, p })
+    //    .Join(_kontext.ProduktEigenschaften, p => p.p.ID, pe => pe.ID, (k, pe) => new
+    //    {
+    //        KategorieName = k.k.Name,
+    //        ProduktName = k.p.Name,
+    //        ProduktEigenschaftFarbe = pe.Farbe
+    //    });
+
+    //var resultat2 = (from k in _kontext.Kategorien
+    //                 join p in _kontext.Produkte
+    //                 on k.ID equals p.KategorieID      //**Best practice
+    //                 select p).ToList();
+
+    //var resultat3 = (from k in _kontext.Kategorien
+    //                 join p in _kontext.Produkte on k.ID equals p.KategorieID
+    //                 join pe in _kontext.ProduktEigenschaften on p.ID equals pe.ID
+    //                 select new { k, p, pe }).ToList();                              //**Best practice 
+
+    //resultat3.ForEach(p =>
+    //{
+    //    p.p.Name = "Aspekte Neu B1";
+    //    p.k.Name = "Bücher";
+    //    p.pe.Farbe = "Rot";
+    //});
+
+    //Console.WriteLine("");
+
+    //2.Weise(Zu Zweit Tabelle erstellen)
+
+    //var resultat = _kontext.Kategorien.Join(_kontext.Produkte, k => k.ID, p => p.KategorieID, (k, p) => new
+    //{
+    //    KategorieName = k.Name,
+    //    ProduktName = p.Name,
+    //    ProduktPreis = p.Preis
+    //}).ToList();
+
+
+    //var resultat2 = _kontext.Kategorien.Join(_kontext.Produkte, k => k.ID, p => p.KategorieID, (k, p) => p).ToList();
+
+    //var resultat3 = (from k in _kontext.Kategorien
+    //                 join p in _kontext.Produkte
+    //                 on k.ID equals p.KategorieID
+    //                 select new
+    //                 {
+    //                     KategorieName = k.Name,
+    //                     ProduktName = p.Name,
+    //                     ProduktPreis = p.Preis
+    //                 }).ToList();
+    //Console.WriteLine("");
+
+    #endregion
+
     #endregion
 }
 #region Benutzerdefinierte Methode für Abfrage(Client)
