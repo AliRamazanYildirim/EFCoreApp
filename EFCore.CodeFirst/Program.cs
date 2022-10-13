@@ -548,6 +548,8 @@ using (var _kontext = new AppDBKontext())
 
     //1.Weise(Zu Dritt Table erstellen)
 
+    //Method Syntax
+
     //var resultat = _kontext.Kategorien.Join(_kontext.Produkte, k => k.ID, p => p.KategorieID, (k, p) => new { k, p })
     //    .Join(_kontext.ProduktEigenschaften, p => p.p.ID, pe => pe.ID, (k, pe) => new
     //    {
@@ -598,6 +600,37 @@ using (var _kontext = new AppDBKontext())
     //                 }).ToList();
     //Console.WriteLine("");
 
+    #endregion
+
+    #region Left+Right Join (Full Outer Join)
+    //Query Syntax
+
+    //var link =await (from p in _kontext.Produkte
+    //         join pe in _kontext.ProduktEigenschaften on p.ID equals pe.ID into peList
+    //         from pe in peList.DefaultIfEmpty()
+    //         select new
+    //         {
+    //             ID=p.ID,
+    //             ProduktName=p.Name,
+    //             ProduktFarbe=pe.Farbe
+    //         }).ToListAsync();
+
+    //var rechts = await (from pe in _kontext.ProduktEigenschaften
+    //                   join p in _kontext.Produkte on pe.ID equals p.ID into plist
+    //                   from p in plist.DefaultIfEmpty()
+    //                   select new
+    //                   {
+    //                       ID = p.ID,
+    //                       ProduktName = p.Name,
+    //                       ProduktFarbe = pe.Farbe
+    //                   }).ToListAsync();
+
+    //var outerJoin = link.Union(rechts);
+
+    //outerJoin.ToList().ForEach(o =>
+    //{
+    //    Console.WriteLine($"{o.ID} - {o.ProduktName} - {o.ProduktFarbe}");
+    //});
     #endregion
 
     #endregion
