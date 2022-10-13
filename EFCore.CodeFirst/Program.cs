@@ -499,13 +499,17 @@ using (var _kontext = new AppDBKontext())
     //{
     //    Name = "Aspekte Neu B2",
     //    Preis = 40,
-    //    RabattPreis = 10,
+    //    RabattPreis = 100,
     //    Vorrat = 100,
     //    Strichcode = 158831,
     //    Url = "adfsafdlkslfkdsf"
-
+        
 
     //});
+    //if (produkt.RabattPreis > produkt.Preis)
+    //{
+    //    throw new Exception("RabattPreis soll nicht größer als Preis sein");
+    //}
 
     //_kontext.Produkte.Where(ind => ind.Name == "Aspekte Neu B2").Select(ind => new
     //{
@@ -517,7 +521,7 @@ using (var _kontext = new AppDBKontext())
     //_kontext.SaveChanges();
     //Console.WriteLine($"{produkt.Name}-{produkt.Preis}-{produkt.Vorrat}");
 
-    #endregion
+        #endregion
 }
 
 
