@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient.Server;
+﻿using EFCore.CodeFirst.Modelle;
+using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,10 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+        public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
+        public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
+
+
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
         //public DbSet<Personal> Personal { get; set; }
@@ -182,6 +187,14 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().HasIndex(i => new {i.Name,i.Preis}); 
 
             #endregion
+            #endregion
+
+            #region 3.Weise mit FromSqlInterpolated spezielle Abfrage schreiben
+            //modelBuilder.Entity<ProduktMitProEigenschaft>().HasNoKey();
+            //modelBuilder.Entity<ProduktMitProEigenschaft>().Ignore(p => p.ID);
+            //modelBuilder.Entity<WesentlichProdukt>().HasNoKey();
+            //modelBuilder.Entity<WesentlichProdukt>().Ignore(p => p.ID);
+
             #endregion
 
             base.OnModelCreating(modelBuilder);

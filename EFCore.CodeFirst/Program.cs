@@ -635,7 +635,6 @@ using (var _kontext = new AppDBKontext())
 
     #region Raw Sql Query (Rohe SQL-Abfrage)
 
-
     #region 1.Weise mit FromSqlRaw
     //var produkte = await _kontext.Produkte.FromSqlRaw("Select * From Produkte").ToListAsync();
 
@@ -649,15 +648,25 @@ using (var _kontext = new AppDBKontext())
     //var produkte = await _kontext.Produkte.FromSqlRaw("Select * From Produkte Where preis>{0}", preis).ToListAsync();
     //Console.WriteLine("");
     #endregion
-    #region 
 
-    var id = 1;
-    decimal preis = 30;
-    var produkt = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where id={id}").FirstAsync();
-    var produkte = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where preis>{preis}").ToListAsync();
+    #region 2.Weise mit FromSqlInterpolated
 
-    Console.WriteLine("");
+    //var id = 1;
+    //decimal preis = 30;
+    //var produkt = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where id={id}").FirstAsync();
+    //var produkte = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where preis>{preis}").ToListAsync();
+
+    //Console.WriteLine("");
     #endregion
+
+    #region 3.Weise mit FromSqlInterpolated spezielle Abfrage schreiben
+
+    //var produkt = await _kontext.WesentlichProdukte.FromSqlInterpolated($"Select  Name, Preis From Produkte ").ToListAsync();
+    //var produkte = await _kontext.ProduktMitProEigenschaften.FromSqlInterpolated
+    //    ($"Select p.ID,p.Name,p.Preis,pe.Farbe,pe.Grösse From Produkte p inner join ProduktEigenschaften pe on p.ID=pe.ID").ToListAsync();
+    //Console.WriteLine("");
+    #endregion
+
     #endregion
 
     #endregion
