@@ -633,6 +633,33 @@ using (var _kontext = new AppDBKontext())
     //});
     #endregion
 
+    #region Raw Sql Query (Rohe SQL-Abfrage)
+
+
+    #region 1.Weise mit FromSqlRaw
+    //var produkte = await _kontext.Produkte.FromSqlRaw("Select * From Produkte").ToListAsync();
+
+    //var wert = String.Format("produkte:{0}-{1}", 1, "Ali"); wie unten verwendet wurde
+
+    //Mit Parameter
+
+    //var id = 1;
+    //decimal preis = 30;
+    //var produkt = await _kontext.Produkte.FromSqlRaw("Select * From Produkte Where id={0}",id).FirstAsync();
+    //var produkte = await _kontext.Produkte.FromSqlRaw("Select * From Produkte Where preis>{0}", preis).ToListAsync();
+    //Console.WriteLine("");
+    #endregion
+    #region 
+
+    var id = 1;
+    decimal preis = 30;
+    var produkt = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where id={id}").FirstAsync();
+    var produkte = await _kontext.Produkte.FromSqlInterpolated($"Select * From Produkte Where preis>{preis}").ToListAsync();
+
+    Console.WriteLine("");
+    #endregion
+    #endregion
+
     #endregion
 }
 #region Benutzerdefinierte Methode für Abfrage(Client)
