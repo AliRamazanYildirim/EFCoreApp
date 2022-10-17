@@ -189,12 +189,15 @@ namespace EFCore.CodeFirst.DZS
             #endregion
             #endregion
 
-            #region 3.Weise mit FromSqlInterpolated spezielle Abfrage schreiben
+            #region Raw Sql Query 3.Weise mit FromSqlInterpolated spezielle Abfrage schreiben
             //modelBuilder.Entity<ProduktMitProEigenschaft>().HasNoKey();
             //modelBuilder.Entity<ProduktMitProEigenschaft>().Ignore(p => p.ID);
             //modelBuilder.Entity<WesentlichProdukt>().HasNoKey();
             //modelBuilder.Entity<WesentlichProdukt>().Ignore(p => p.ID);
 
+            #endregion
+            #region ToSqlQuery Methode(Spezille Abfrage)
+            modelBuilder.Entity<WesentlichProdukt>().HasNoKey().ToSqlQuery("Select Name,Preis From Produkte");
             #endregion
 
             base.OnModelCreating(modelBuilder);

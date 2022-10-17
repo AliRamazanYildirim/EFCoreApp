@@ -667,6 +667,11 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("");
     #endregion
 
+    #region ToSqlQuery Methode(Spezille Abfrage)
+    var produkte = _kontext.WesentlichProdukte.Where(p=>p.Preis>30).ToList();
+    Console.WriteLine("");
+    #endregion
+
     #endregion
 
     #endregion

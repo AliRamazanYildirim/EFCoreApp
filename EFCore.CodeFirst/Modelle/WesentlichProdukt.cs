@@ -10,7 +10,7 @@ namespace EFCore.CodeFirst.Modelle
     {
         //Bei den speziellen Abfragen ist es besser, wenn man HasNoKey und Ignore Methode verwendet,
         //weil Ef Core wird ID property als Primary Key akzeptieren.
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public string Name { get; set; }
         public decimal Preis { get; set; }
 
