@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 Initialisierer.Build();
 using (var _kontext = new AppDBKontext())
-    {
+{
 
     #region EF Core Methoden
     //var neuesProdukt = new Produkt { Name = "Rotring 0.5mm ", Preis = 40, Vorrat = 100, Strichcode = 777 };
@@ -695,11 +695,17 @@ using (var _kontext = new AppDBKontext())
     #endregion
 
     #region Global Query Filters
-    //var produkte = _kontext.Produkte.ToList();
-    //Wenn man QueryFilters ignorieren möchte,kann man wie unten schreiben
-    //var produkte = _kontext.Produkte.IgnoreQueryFilters().ToList();
+    //Initialisierer.Build();
 
-    //Console.WriteLine("");
+    //using (var _kontext = new AppDBKontext(158831))
+    //    {
+    //        var produkte = _kontext.Produkte.ToList();
+    //    //Wenn man QueryFilters ignorieren möchte,kann man wie unten schreiben
+    //    //var produkte = _kontext.Produkte.IgnoreQueryFilters().ToList();
+
+    //    Console.WriteLine("");
+
+    //    }
     #endregion
     #endregion
 }
