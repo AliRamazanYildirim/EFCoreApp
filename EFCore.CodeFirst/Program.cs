@@ -707,6 +707,13 @@ using (var _kontext = new AppDBKontext())
 
     //    }
     #endregion
+
+    #region Query Tags
+    //var produktMitEigenschaften = _kontext.Produkte.
+    //    TagWith("Diese Abfrage listet die Produkte und die mit den Produkten verbundenen Attribute auf.")
+    //    .Include(pe => pe.ProduktEigenschaft).Where(p => p.Preis > 10).ToList();
+    //Console.WriteLine("");
+    #endregion
     #endregion
 }
 #region Pagination(Query)

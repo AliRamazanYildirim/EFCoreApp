@@ -13,16 +13,7 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        private readonly int Strichcode;
-
-        public AppDBKontext(int strichcode)
-        {
-            Strichcode = strichcode;
-        }
-        public AppDBKontext()
-        {
-
-        }
+        
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
@@ -223,7 +214,16 @@ namespace EFCore.CodeFirst.DZS
             #endregion
 
             #region Global Query Filters
+            //private readonly int Strichcode;
 
+            //public AppDBKontext(int strichcode)
+            //{
+            //    Strichcode = strichcode;
+            //}
+            //public AppDBKontext()
+            //{
+
+            //}
             //modelBuilder.Entity<Produkt>().Property(p => p.IstGelöscht).HasDefaultValue(false);
 
             //modelBuilder.Entity<Produkt>().HasQueryFilter(p => p.IstGelöscht == false);
