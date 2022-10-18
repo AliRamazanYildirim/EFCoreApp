@@ -19,8 +19,11 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
-        public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
-        public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
+        public DbSet<VollesProdukt> VolleProdukte { get; set; }
+
+
+        //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
+        //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
 
 
@@ -196,8 +199,17 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<WesentlichProdukt>().Ignore(p => p.ID);
 
             #endregion
+
             #region ToSqlQuery Methode(Spezille Abfrage)
+
             modelBuilder.Entity<WesentlichProdukt>().HasNoKey().ToSqlQuery("Select Name,Preis From Produkte");
+
+            #endregion
+
+            #region ToView Methode
+
+            //modelBuilder.Entity<VollesProdukt>().HasNoKey().ToView("ProduktMitEigenschaften");
+
             #endregion
 
             base.OnModelCreating(modelBuilder);

@@ -2,6 +2,7 @@
 
 using EFCore.CodeFirst;
 using EFCore.CodeFirst.DZS;
+using EFCore.CodeFirst.Modelle;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -668,10 +669,26 @@ using (var _kontext = new AppDBKontext())
     #endregion
 
     #region ToSqlQuery Methode(Spezille Abfrage)
-    var produkte = _kontext.WesentlichProdukte.Where(p=>p.Preis>30).ToList();
-    Console.WriteLine("");
+    //var produkte = _kontext.WesentlichProdukte.Where(p=>p.Preis>30).ToList();
+    //Console.WriteLine("");
     #endregion
 
+    #endregion
+
+    #region ToView Methode 
+
+    //CRUD-Operationen werden nicht durchgeführt, da sie nicht zwischen der Produkttabelle und
+    //der VolleProdukttabelle übereinstimmen können.
+
+    //Aber diese Methode kann verwendet werden, um Daten zu verfolgen.
+    //var produkte = _kontext.VolleProdukte.Where(p=>p.Grösse>10).ToList();
+   
+    //_kontext.VolleProdukte.Add(new VollesProdukt()
+    //{
+    //    Name="Aspekte C2", Grösse=15, Breite=30, KategorieName="Bücher"
+    //});
+    //_kontext.SaveChanges();
+    //Console.WriteLine("");
     #endregion
 
     #endregion
