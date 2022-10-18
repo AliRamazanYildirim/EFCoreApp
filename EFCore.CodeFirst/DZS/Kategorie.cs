@@ -10,6 +10,6 @@ namespace EFCore.CodeFirst.DZS
     {
         public int ID { get; set; }
         public String Name { get; set; }
-        //public virtual List<Produkt> Produkte { get; set; } = new List<Produkt>();
+        public virtual List<Produkt> Produkte { get; set; } = new List<Produkt>();
     }
 }

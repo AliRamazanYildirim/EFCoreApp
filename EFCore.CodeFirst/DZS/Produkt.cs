@@ -30,8 +30,8 @@ namespace EFCore.CodeFirst.DZS
         public int Strichcode { get; set; }
         public string Url { get; set; }
         public int KategorieID { get; set; }
-        //public virtual Kategorie Kategorie { get; set; }
-        //public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }
+        public virtual Kategorie Kategorie { get; set; }
+        public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }
 
         #region Spalte umbenennen
         //[Column(Order = 1)]//Dies ist erforderlich, wenn Sie eine neue Tabelle erstellen, um eine Spaltensortierung durchzuführen. Andernfalls ist diese Operation für eine vorhandene Tabelle nicht gültig.
