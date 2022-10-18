@@ -678,7 +678,7 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
 
-    #region ToView Methode 
+    #region ToView Methode (Query)
 
     //CRUD-Operationen werden nicht durchgeführt, da sie nicht zwischen der Produkttabelle und
     //der VolleProdukttabelle übereinstimmen können.
@@ -713,6 +713,26 @@ using (var _kontext = new AppDBKontext())
     //    TagWith("Diese Abfrage listet die Produkte und die mit den Produkten verbundenen Attribute auf.")
     //    .Include(pe => pe.ProduktEigenschaft).Where(p => p.Preis > 10).ToList();
     //Console.WriteLine("");
+    #endregion
+
+    #region Query Tracking
+
+    #region Mit AsNoTracking
+
+    //var produkt = await _kontext.Produkte.AsNoTracking().FirstAsync(p=>p.ID==1);
+    //produkt.Name = "Aspekte Neu B1+";
+    //_kontext.Update(produkt);
+    //_kontext.SaveChangesAsync();
+    #endregion
+
+    #region Ohne AsNoTracking(Global QueryTracking in AppDbKontext)
+
+    //var produkt = await _kontext.Produkte.FirstAsync(p => p.ID == 1);
+    //produkt.Name = "Aspekte Neu B1+";
+    //_kontext.Update(produkt);
+    //await _kontext.SaveChangesAsync();
+    #endregion
+
     #endregion
     #endregion
 }

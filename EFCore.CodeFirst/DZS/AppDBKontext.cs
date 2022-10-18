@@ -43,10 +43,17 @@ namespace EFCore.CodeFirst.DZS
         {
             Initialisierer.Build();
             #region Lazy loading Einstellung (Logging)
-            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
-                .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+            //optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+            //    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
             #endregion
-            //optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+
+            #region Global QueryTracking (Logging)
+            //optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+            //    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.
+            //    GetConnectionString("SqlVerbindung")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            #endregion
+
+            optionsBuilder.UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
         }
         #region SaveChanges Methode in DbKontext Klasse definieren
         //public override int SaveChanges()
