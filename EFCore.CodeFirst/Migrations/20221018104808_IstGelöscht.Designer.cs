@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDBKontext))]
-    [Migration("20221014132220_Spezielle_Abfrage")]
-    partial class Spezielle_Abfrage
+    [Migration("20221018104808_IstGelöscht")]
+    partial class IstGelöscht
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,6 @@ namespace EFCore.CodeFirst.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -48,11 +47,15 @@ namespace EFCore.CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<bool>("IstGelöscht")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<int>("KategorieID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Preis")
@@ -67,7 +70,6 @@ namespace EFCore.CodeFirst.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Vorrat")
@@ -75,22 +77,20 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("KategorieID");
+
                     b.ToTable("Produkte");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("Breite")
                         .HasColumnType("int");
 
                     b.Property<string>("Farbe")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Grösse")
@@ -101,35 +101,36 @@ namespace EFCore.CodeFirst.Migrations
                     b.ToTable("ProduktEigenschaften");
                 });
 
-            modelBuilder.Entity("EFCore.CodeFirst.Modelle.ProduktMitProEigenschaft", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
                 {
-                    b.Property<string>("Farbe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("EFCore.CodeFirst.DZS.Kategorie", "Kategorie")
+                        .WithMany("Produkte")
+                        .HasForeignKey("KategorieID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("Grösse")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Preis")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable("ProduktMitProEigenschaften");
+                    b.Navigation("Kategorie");
                 });
 
-            modelBuilder.Entity("EFCore.CodeFirst.Modelle.WesentlichProdukt", b =>
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.ProduktEigenschaft", b =>
                 {
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("EFCore.CodeFirst.DZS.Produkt", "Produkt")
+                        .WithOne("ProduktEigenschaft")
+                        .HasForeignKey("EFCore.CodeFirst.DZS.ProduktEigenschaft", "ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<decimal>("Preis")
-                        .HasColumnType("decimal(18,2)");
+                    b.Navigation("Produkt");
+                });
 
-                    b.ToTable("WesentlichProdukte");
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Kategorie", b =>
+                {
+                    b.Navigation("Produkte");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DZS.Produkt", b =>
+                {
+                    b.Navigation("ProduktEigenschaft");
                 });
 #pragma warning restore 612, 618
         }

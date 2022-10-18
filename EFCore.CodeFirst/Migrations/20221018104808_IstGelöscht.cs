@@ -4,20 +4,17 @@
 
 namespace EFCore.CodeFirst.Migrations
 {
-    public partial class Neu_Initiale : Migration
+    public partial class IstGelöscht : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Leiter");
-
             migrationBuilder.CreateTable(
                 name: "Kategorien",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,12 +27,13 @@ namespace EFCore.CodeFirst.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Preis = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
                     RabattPreis = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
                     Vorrat = table.Column<int>(type: "int", nullable: false),
                     Strichcode = table.Column<int>(type: "int", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IstGelöscht = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     KategorieID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -56,7 +54,7 @@ namespace EFCore.CodeFirst.Migrations
                     ID = table.Column<int>(type: "int", nullable: false),
                     Grösse = table.Column<int>(type: "int", nullable: false),
                     Breite = table.Column<int>(type: "int", nullable: false),
-                    Farbe = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Farbe = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,20 +83,6 @@ namespace EFCore.CodeFirst.Migrations
 
             migrationBuilder.DropTable(
                 name: "Kategorien");
-
-            migrationBuilder.CreateTable(
-                name: "Leiter",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nummer = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Leiter", x => x.ID);
-                });
         }
     }
 }

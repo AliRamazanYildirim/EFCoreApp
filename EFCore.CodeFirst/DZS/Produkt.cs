@@ -29,6 +29,7 @@ namespace EFCore.CodeFirst.DZS
         public int Vorrat { get; set; }
         public int Strichcode { get; set; }
         public string Url { get; set; }
+        public bool IstGelöscht { get; set; }
         public int KategorieID { get; set; }
         public virtual Kategorie Kategorie { get; set; }
         public virtual ProduktEigenschaft ProduktEigenschaft { get; set; }

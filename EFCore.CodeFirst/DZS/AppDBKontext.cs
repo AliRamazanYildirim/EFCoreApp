@@ -191,6 +191,8 @@ namespace EFCore.CodeFirst.DZS
             #endregion
             #endregion
 
+            #region Query(Abfrage)
+
             #region Raw Sql Query 3.Weise mit FromSqlInterpolated spezielle Abfrage schreiben
             //modelBuilder.Entity<ProduktMitProEigenschaft>().HasNoKey();
             //modelBuilder.Entity<ProduktMitProEigenschaft>().Ignore(p => p.ID);
@@ -209,6 +211,18 @@ namespace EFCore.CodeFirst.DZS
 
             //modelBuilder.Entity<VollesProdukt>().HasNoKey().ToView("ProduktMitEigenschaften");
 
+            #endregion
+
+            #region Global Query Filters
+
+            //modelBuilder.Entity<Produkt>().Property(p => p.IstGelöscht).HasDefaultValue(false);
+
+            //modelBuilder.Entity<Produkt>().HasQueryFilter(p => p.IstGelöscht == false);
+            //oder
+            //modelBuilder.Entity<Produkt>().HasQueryFilter(p => !p.IstGelöscht);
+
+
+            #endregion
             #endregion
 
             base.OnModelCreating(modelBuilder);
