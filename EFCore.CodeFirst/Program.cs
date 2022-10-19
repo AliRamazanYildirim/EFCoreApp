@@ -735,6 +735,20 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
     #endregion
+
+    #region Stored Procedure
+    //Mit ForEach
+    //var produkte= await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_gehe_produkte").ToListAsync();
+    //produkte.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.Vorrat}- {p.RabattPreis}- {p.Url}- {p.Strichcode} ");
+    //});
+
+    //Ohne ForEach
+    //var produkte = await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_gehe_produkte").ToListAsync();
+    //Console.WriteLine("");
+
+    #endregion
 }
 #region Pagination(Query)
 //Initialisierer.Build();
