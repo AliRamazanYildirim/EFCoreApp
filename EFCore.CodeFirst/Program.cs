@@ -749,6 +749,20 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine("");
 
     #endregion
+
+    #region Stored Procedure mit Spezielle Tabelle
+    //In Sqlquery kann man nicht Wehere-Methode verwenden aber über produkte kann man Where-Methode erreichen.
+    
+    //var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_gehe_produkte_voll").ToListAsync();
+    //produkte.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite} ");
+    //});
+    //var produkt = produkte.Where(p => p.Preis > 40);
+    //Console.WriteLine(produkt);
+    #endregion
+
+
 }
 #region Pagination(Query)
 //Initialisierer.Build();

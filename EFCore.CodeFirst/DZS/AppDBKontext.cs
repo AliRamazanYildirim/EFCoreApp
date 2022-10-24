@@ -18,7 +18,7 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
-        //public DbSet<VollesProdukt> VolleProdukte { get; set; }
+        public DbSet<VollesProdukt> VolleProdukte { get; set; }
         //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
@@ -253,6 +253,10 @@ namespace EFCore.CodeFirst.DZS
 
             #endregion
 
+            #endregion
+
+            #region Stored Procedure mit Spezielle Tabelle und Join
+            //modelBuilder.Entity<VollesProdukt>().HasNoKey();
             #endregion
 
             base.OnModelCreating(modelBuilder);

@@ -10,6 +10,7 @@ namespace EFCore.CodeFirst.Modelle
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public decimal Preis { get; set; }
         public string KategorieName { get; set; }
         public int Grösse { get; set; }
         public int Breite { get; set; }
