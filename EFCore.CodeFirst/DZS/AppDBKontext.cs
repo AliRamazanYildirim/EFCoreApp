@@ -87,7 +87,7 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<Produkt>().Property(p => p.Name).HasMaxLength(150).IsFixedLength();
             #endregion
 
-            #region In DbKontext Klasse mit Fluent API FK definieren
+            #region In DbKontext Klasse mit Fluent API FK definieren(One-To-Many)
             //Wenn man FK speziell benenen will, soll man Fluent API verwenden.
 
             //One-To-Many
@@ -98,7 +98,7 @@ namespace EFCore.CodeFirst.DZS
             //    HasForeignKey<ProduktEigenschaft>(pe => pe.ID);
             #endregion
 
-            #region Speziell Id definieren mit Fluent API
+            #region Speziell Id definieren mit Fluent API(Many-To-Many)
             //Many-To-Many
             //modelBuilder.Entity<Student>().HasMany(s => s.Lehrer)
             //    .WithMany(t => t.Studenten)
