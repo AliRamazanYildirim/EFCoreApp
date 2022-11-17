@@ -13,24 +13,25 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        
-        public DbSet<Produkt> Produkte { get; set; }
-        public DbSet<Kategorie> Kategorien { get; set; }
-        public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
-        public DbSet<VollesProdukt> VolleProdukte { get; set; }
+        //public DbSet<Produkt> Produkte { get; set; }
+        //public DbSet<Kategorie> Kategorien { get; set; }
+        //public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
+
+        //public DbSet<VollesProdukt> VolleProdukte { get; set; }
         //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
-        //public DbSet<Personal> Personal { get; set; }
+
 
         //public DbSet<Student> Studenten { get; set; }
         //public DbSet<Lehrer> Lehrer { get; set; }
         //public DbSet<Leiter> Leiter { get; set; }
 
-        //public DbSet<Manager> Manager { get; set; }
-        //public DbSet<Arbeiter> Arbeiter { get; set; }
+        //public DbSet<Personal> Personal { get; set; }
+        public DbSet<Manager> Manager { get; set; }
+        public DbSet<Arbeiter> Arbeiter { get; set; }
 
 
         #region TPH(Table-Per-Hierarcy)  
@@ -255,10 +256,24 @@ namespace EFCore.CodeFirst.DZS
 
             #endregion
 
-            #region Stored Procedure mit Spezielle Tabelle und Join
+            #region Store Procedure mit Spezielle Tabelle und Join
             //modelBuilder.Entity<VollesProdukt>().HasNoKey();
             #endregion
+            #region Store Procedure mit Fluent API 
+            modelBuilder.Entity<Manager>().OwnsOne(o => o.Personal, p =>
+            {
+                p.Property(o => o.VorName).HasColumnName("Vorname");
+                p.Property(o => o.NachName).HasColumnName("Nachname");
+                p.Property(o => o.Alter).HasColumnName("Alter");
 
+            });
+            modelBuilder.Entity<Arbeiter>().OwnsOne(o => o.Personal, p =>
+            {
+                p.Property(o => o.VorName).HasColumnName("Vorname");
+                p.Property(o => o.NachName).HasColumnName("Nachname");
+                p.Property(o => o.Alter).HasColumnName("Alter");
+            });
+            #endregion
             base.OnModelCreating(modelBuilder);
         }
     }
