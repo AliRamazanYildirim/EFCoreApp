@@ -738,28 +738,28 @@ using (var _kontext = new AppDBKontext())
 
     #region Stored Procedure
     //Mit ForEach
-    //var produkte= await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_gehe_produkte").ToListAsync();
+    //var produkte= await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_rufe_produkte_auf").ToListAsync();
     //produkte.ForEach(p =>
     //{
     //    Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.Vorrat}- {p.RabattPreis}- {p.Url}- {p.Strichcode} ");
     //});
 
     //Ohne ForEach
-    //var produkte = await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_gehe_produkte").ToListAsync();
+    //var produkte = await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_rufe_produkte_auf").ToListAsync();
     //Console.WriteLine("");
 
     #endregion
 
     #region Stored Procedure mit Spezielle Tabelle
     //In Sqlquery kann man nicht Wehere-Methode verwenden aber über produkte kann man Where-Methode erreichen.
-    
-    //var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_gehe_produkte_voll").ToListAsync();
-    //produkte.ForEach(p =>
-    //{
-    //    Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite} ");
-    //});
-    //var produkt = produkte.Where(p => p.Preis > 40);
-    //Console.WriteLine(produkt);
+
+    var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_rufe_produkt_volles_auf").ToListAsync();
+    produkte.ForEach(p =>
+    {
+        Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite} ");
+    });
+    var produkt = produkte.Where(p => p.Preis > 40);
+    Console.WriteLine(produkt);
     #endregion
 
 
