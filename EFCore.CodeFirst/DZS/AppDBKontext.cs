@@ -257,8 +257,9 @@ namespace EFCore.CodeFirst.DZS
             #endregion
 
             #region Store Procedure mit Spezielle Tabelle und Join
-            modelBuilder.Entity<VollesProdukt>().HasNoKey();
+            //modelBuilder.Entity<VollesProdukt>().HasNoKey();
             #endregion
+
             #region Store Procedure mit Fluent API 
             //modelBuilder.Entity<Manager>().OwnsOne(o => o.Personal, p =>
             //{
