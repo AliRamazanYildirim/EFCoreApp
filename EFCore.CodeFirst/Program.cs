@@ -762,7 +762,22 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine(produkt);
     #endregion
 
-
+    #region 
+    var kategorieID = 1;
+    decimal preis = 40;
+    var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_rufe_produkt_volles_auf_parameter_left_join {kategorieID},{preis}").ToListAsync();
+    if (produkte.Any(p => p.Preis > preis))
+    {
+        produkte.ForEach(p =>
+        {
+            Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite}");
+        });
+    }
+    else 
+    {
+        Console.WriteLine($"Kein Produkt mit {preis} wurde gefunden.");
+    }
+    #endregion
 }
 #region Pagination(Query)
 //Initialisierer.Build();
