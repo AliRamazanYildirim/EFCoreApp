@@ -3,6 +3,7 @@
 using EFCore.CodeFirst;
 using EFCore.CodeFirst.DZS;
 using EFCore.CodeFirst.Modelle;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -762,21 +763,39 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine(produkt);
     #endregion
 
+    #region Stored Procedure Mit Parameter
+    //var kategorieID = 1;
+    //decimal preis = 40;
+    //var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_rufe_produkt_volles_auf_parameter_left_join {kategorieID},{preis}").ToListAsync();
+    //if (produkte.Any(p => p.Preis > preis))
+    //{
+    //    produkte.ForEach(p =>
+    //    {
+    //        Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite}");
+    //    });
+    //}
+    //else 
+    //{
+    //    Console.WriteLine($"Kein Produkt mit {preis} wurde gefunden.");
+    //}
+    #endregion
+
     #region 
-    var kategorieID = 1;
-    decimal preis = 40;
-    var produkte = await _kontext.VolleProdukte.FromSqlInterpolated($"EXEC sp_rufe_produkt_volles_auf_parameter_left_join {kategorieID},{preis}").ToListAsync();
-    if (produkte.Any(p => p.Preis > preis))
+    
+    var produkt = new Produkt
     {
-        produkte.ForEach(p =>
-        {
-            Console.WriteLine($"{p.ID}:{p.Name} - {p.Preis} - {p.KategorieName}- {p.Grösse}- {p.Breite}");
-        });
-    }
-    else 
-    {
-        Console.WriteLine($"Kein Produkt mit {preis} wurde gefunden.");
-    }
+        Name = "Netzwerk B1 Neu",
+        Preis = 35,
+        RabattPreis = 25,
+        Vorrat = 100,
+        Strichcode = 12347,
+        KategorieID = 1
+    };
+    var neueProduktIDParameter = new SqlParameter("@neueID", System.Data.SqlDbType.Int);
+    neueProduktIDParameter.Direction = System.Data.ParameterDirection.Output;
+    _kontext.Database.ExecuteSqlInterpolated($"EXEC sp_insert_produkt {produkt.Name},{produkt.Preis},{produkt.RabattPreis},{produkt.Vorrat},{produkt.Strichcode},{produkt.KategorieID},{neueProduktIDParameter} out");
+    var neueProduktID = neueProduktIDParameter.Value;
+    Console.WriteLine($"Produkt wurde mit Nummer {neueProduktID} gespeichert");
     #endregion
 }
 #region Pagination(Query)
