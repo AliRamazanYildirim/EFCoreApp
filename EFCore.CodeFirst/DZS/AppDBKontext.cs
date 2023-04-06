@@ -275,6 +275,13 @@ namespace EFCore.CodeFirst.DZS
             //    p.Property(o => o.Alter).HasColumnName("Alter");
             //});
             #endregion
+
+            #region Function Ohne Parameter verwenden
+
+            modelBuilder.Entity<VollesProdukt>().ToFunction("fc_volles_produkt");
+
+            #endregion
+
             base.OnModelCreating(modelBuilder);
         }
     }

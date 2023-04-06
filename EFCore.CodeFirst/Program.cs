@@ -780,22 +780,32 @@ using (var _kontext = new AppDBKontext())
     //}
     #endregion
 
-    #region 
-    
-    var produkt = new Produkt
-    {
-        Name = "Netzwerk B1 Neu",
-        Preis = 35,
-        RabattPreis = 25,
-        Vorrat = 100,
-        Strichcode = 12347,
-        KategorieID = 1
-    };
-    var neueProduktIDParameter = new SqlParameter("@neueID", System.Data.SqlDbType.Int);
-    neueProduktIDParameter.Direction = System.Data.ParameterDirection.Output;
-    _kontext.Database.ExecuteSqlInterpolated($"EXEC sp_insert_produkt {produkt.Name},{produkt.Preis},{produkt.RabattPreis},{produkt.Vorrat},{produkt.Strichcode},{produkt.KategorieID},{neueProduktIDParameter} out");
-    var neueProduktID = neueProduktIDParameter.Value;
-    Console.WriteLine($"Produkt wurde mit Nummer {neueProduktID} gespeichert");
+    #region Stored Procedure Insert-Transaktion mit Output Parameter
+
+    //var produkt = new Produkt
+    //{
+    //    Name = "Netzwerk B1 Neu",
+    //    Preis = 35,
+    //    RabattPreis = 25,
+    //    Vorrat = 100,
+    //    Strichcode = 12347,
+    //    KategorieID = 1
+    //};
+    //var neueProduktIDParameter = new SqlParameter("@neueID", System.Data.SqlDbType.Int);
+    //neueProduktIDParameter.Direction = System.Data.ParameterDirection.Output;
+    //_kontext.Database.ExecuteSqlInterpolated($"EXEC sp_insert_produkt {produkt.Name},{produkt.Preis},{produkt.RabattPreis},{produkt.Vorrat},{produkt.Strichcode},{produkt.KategorieID},{neueProduktIDParameter} out");
+    //var neueProduktID = neueProduktIDParameter.Value;
+    //Console.WriteLine($"Produkt wurde mit Nummer {neueProduktID} gespeichert");
+    #endregion
+
+    #region Function Ohne Parameter verwenden
+
+    var produkte = await _kontext.VolleProdukte.ToListAsync();
+    produkte.ForEach(p =>
+        {
+            Console.WriteLine($"{p.Name} - {p.KategorieName} - {p.Preis} - {p.Grösse} - {p.Breite}");
+        });
+
     #endregion
 }
 #region Pagination(Query)
