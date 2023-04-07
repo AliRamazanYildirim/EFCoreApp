@@ -12,9 +12,9 @@ namespace EFCore.CodeFirst.Modelle
         //weil Ef Core wird ID property als Primary Key akzeptieren.
         public int ID { get; set; }
         public string Name { get; set; }
-        public decimal Preis { get; set; }
-        public string Farbe { get; set; }
-        public int Grösse { get; set; }
+        public int? Grösse { get; set; }
+        public int? Breite { get; set; }
+
 
     }
 }

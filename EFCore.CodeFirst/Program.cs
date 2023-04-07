@@ -737,6 +737,8 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
 
+    #region Stored Procedures
+
     #region Stored Procedure
     //Mit ForEach
     //var produkte= await _kontext.Produkte.FromSqlInterpolated($"EXEC sp_rufe_produkte_auf").ToListAsync();
@@ -798,13 +800,32 @@ using (var _kontext = new AppDBKontext())
     //Console.WriteLine($"Produkt wurde mit Nummer {neueProduktID} gespeichert");
     #endregion
 
+    #endregion
+
     #region Function Ohne Parameter verwenden
 
-    var produkte = await _kontext.VolleProdukte.ToListAsync();
-    produkte.ForEach(p =>
-        {
-            Console.WriteLine($"{p.Name} - {p.KategorieName} - {p.Preis} - {p.Grösse} - {p.Breite}");
-        });
+    //var produkte = await _kontext.VolleProdukte.ToListAsync();
+    //produkte.ForEach(p =>
+    //    {
+    //        Console.WriteLine($"{p.Name} - {p.KategorieName} - {p.Preis} - {p.Grösse} - {p.Breite}");
+    //    });
+
+    #endregion
+
+    #region Function Mit Parameter verwenden
+
+    #region 1.Weise 
+
+    Console.Write("Kategori ID eingeben: ");
+    int kategorieID = Convert.ToInt32(Console.ReadLine());
+    var produkte = _kontext.ProduktMitProEigenschaften.FromSqlInterpolated($"SELECT * FROM fc_volles_produkt_mit_parameter({kategorieID})");
+    foreach (var p in produkte)
+    {
+        Console.WriteLine($"{p.ID}:{p.Name} - {p.Grösse}- {p.Breite}");
+
+    };
+    #endregion
+
 
     #endregion
 }

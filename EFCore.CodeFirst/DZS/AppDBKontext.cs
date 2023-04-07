@@ -19,7 +19,7 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
         public DbSet<VollesProdukt> VolleProdukte { get; set; }
-        //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
+        public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
@@ -278,7 +278,7 @@ namespace EFCore.CodeFirst.DZS
 
             #region Function Ohne Parameter verwenden
 
-            modelBuilder.Entity<VollesProdukt>().ToFunction("fc_volles_produkt");
+            //modelBuilder.Entity<VollesProdukt>().ToFunction("fc_volles_produkt");
 
             #endregion
 
