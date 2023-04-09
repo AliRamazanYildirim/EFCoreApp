@@ -816,17 +816,24 @@ using (var _kontext = new AppDBKontext())
 
     #region 1.Weise 
 
-    Console.Write("Kategori ID eingeben: ");
-    int kategorieID = Convert.ToInt32(Console.ReadLine());
-    var produkte = _kontext.ProduktMitProEigenschaften.FromSqlInterpolated($"SELECT * FROM fc_volles_produkt_mit_parameter({kategorieID})");
-    foreach (var p in produkte)
-    {
-        Console.WriteLine($"{p.ID}:{p.Name} - {p.Grösse}- {p.Breite}");
+    //Console.Write("Kategori ID eingeben: ");
+    //int kategorieID = Convert.ToInt32(Console.ReadLine());
+    //var produkte = _kontext.ProduktMitProEigenschaften.FromSqlInterpolated($"SELECT * FROM fc_volles_produkt_mit_parameter({kategorieID})");
+    //foreach (var p in produkte)
+    //{
+    //    Console.WriteLine($"{p.ID}:{p.Name} - {p.Grösse}- {p.Breite}");
 
-    };
+    //};
     #endregion
 
+    #region 2.Weise
 
+    var produkt = await _kontext.RufeProduktMitEigenschaftAuf(1).Where(p=>p.Grösse>10).ToListAsync();
+    produkt.ForEach(p =>
+    {
+        Console.WriteLine($"{p.Name}-{p.Grösse}-{p.Breite}");
+    });
+    #endregion
     #endregion
 }
 #region Pagination(Query)

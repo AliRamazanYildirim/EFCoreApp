@@ -19,7 +19,7 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
         public DbSet<VollesProdukt> VolleProdukte { get; set; }
-        public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
+        //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
         //public DbSet<SpeziellesProdukt> SpeziellesProdukte { get; set; }
@@ -33,6 +33,12 @@ namespace EFCore.CodeFirst.DZS
         //public DbSet<Manager> Manager { get; set; }
         //public DbSet<Arbeiter> Arbeiter { get; set; }
 
+        #region Functuion Mit Parameter verwenden (2.Weise)
+        public IQueryable<ProduktMitProEigenschaft> RufeProduktMitEigenschaftAuf(int kategorieID)
+        {
+            return FromExpression(() => RufeProduktMitEigenschaftAuf(kategorieID));
+        }
+        #endregion
 
         #region TPH(Table-Per-Hierarcy)  
         //Wenn wir alle anderen Tabellen in einer einzelnen Hierarchie aggregieren möchten,
@@ -260,27 +266,23 @@ namespace EFCore.CodeFirst.DZS
             //modelBuilder.Entity<VollesProdukt>().HasNoKey();
             #endregion
 
-            #region Store Procedure mit Fluent API 
-            //modelBuilder.Entity<Manager>().OwnsOne(o => o.Personal, p =>
-            //{
-            //    p.Property(o => o.VorName).HasColumnName("Vorname");
-            //    p.Property(o => o.NachName).HasColumnName("Nachname");
-            //    p.Property(o => o.Alter).HasColumnName("Alter");
-
-            //});
-            //modelBuilder.Entity<Arbeiter>().OwnsOne(o => o.Personal, p =>
-            //{
-            //    p.Property(o => o.VorName).HasColumnName("Vorname");
-            //    p.Property(o => o.NachName).HasColumnName("Nachname");
-            //    p.Property(o => o.Alter).HasColumnName("Alter");
-            //});
-            #endregion
+            #region Function
 
             #region Function Ohne Parameter verwenden
 
             //modelBuilder.Entity<VollesProdukt>().ToFunction("fc_volles_produkt");
 
             #endregion
+
+            #region Function Mit Parameter verwenden (2.Weise)
+
+            modelBuilder.HasDbFunction(typeof(AppDBKontext)
+                .GetMethod(nameof(RufeProduktMitEigenschaftAuf), new[] {typeof(int)})!).HasName("fc_volles_produkt_mit_parameter");
+
+            #endregion
+            #endregion
+
+
 
             base.OnModelCreating(modelBuilder);
         }
