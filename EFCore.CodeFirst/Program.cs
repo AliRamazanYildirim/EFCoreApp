@@ -802,6 +802,8 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
 
+    #region Function
+
     #region Function Ohne Parameter verwenden
 
     //var produkte = await _kontext.VolleProdukte.ToListAsync();
@@ -828,12 +830,30 @@ using (var _kontext = new AppDBKontext())
 
     #region 2.Weise
 
-    var produkt = await _kontext.RufeProduktMitEigenschaftAuf(1).Where(p=>p.Grösse>10).ToListAsync();
-    produkt.ForEach(p =>
+    //var produkt = await _kontext.RufeProduktMitEigenschaftAuf(1).Where(p=>p.Grösse>10).ToListAsync();
+    //produkt.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.Name}-{p.Grösse}-{p.Breite}");
+    //});
+    #endregion
+    #endregion
+
+    #region Scalar-Valued Function (1.Weise)
+
+    //var anzahl = _kontext.RufeProduktAnzahlAuf(1);
+
+    var kategorien = await _kontext.Kategorien.Select(k => new
     {
-        Console.WriteLine($"{p.Name}-{p.Grösse}-{p.Breite}");
+        KategorieName = k.Name,
+        ProduktAnzahl = _kontext.RufeProduktAnzahlAuf(k.ID)
+    }).Where(k=>k.ProduktAnzahl>3).ToListAsync();
+
+    kategorien.ForEach(k =>
+    {
+        Console.WriteLine($"{k.KategorieName}-{k.ProduktAnzahl}");
     });
     #endregion
+
     #endregion
 }
 #region Pagination(Query)

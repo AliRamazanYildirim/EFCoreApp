@@ -34,10 +34,19 @@ namespace EFCore.CodeFirst.DZS
         //public DbSet<Arbeiter> Arbeiter { get; set; }
 
         #region Functuion Mit Parameter verwenden (2.Weise)
-        public IQueryable<ProduktMitProEigenschaft> RufeProduktMitEigenschaftAuf(int kategorieID)
+        //public IQueryable<ProduktMitProEigenschaft> RufeProduktMitEigenschaftAuf(int kategorieID)
+        //{
+        //    return FromExpression(() => RufeProduktMitEigenschaftAuf(kategorieID));
+        //}
+        #endregion
+
+        #region Scalar-Valued Function
+
+        public int RufeProduktAnzahlAuf(int kategorieID)
         {
-            return FromExpression(() => RufeProduktMitEigenschaftAuf(kategorieID));
+            throw new NotSupportedException("Diese Methode wird von EF Core ausgeführt.");
         }
+
         #endregion
 
         #region TPH(Table-Per-Hierarcy)  
@@ -276,10 +285,18 @@ namespace EFCore.CodeFirst.DZS
 
             #region Function Mit Parameter verwenden (2.Weise)
 
-            modelBuilder.HasDbFunction(typeof(AppDBKontext)
-                .GetMethod(nameof(RufeProduktMitEigenschaftAuf), new[] {typeof(int)})!).HasName("fc_volles_produkt_mit_parameter");
+            //modelBuilder.HasDbFunction(typeof(AppDBKontext)
+            //    .GetMethod(nameof(RufeProduktMitEigenschaftAuf), new[] {typeof(int)})!).HasName("fc_volles_produkt_mit_parameter");
 
             #endregion
+
+            #region Scalar-Function Mit Parameter verwenden 
+
+            modelBuilder.HasDbFunction(typeof(AppDBKontext)
+                .GetMethod(nameof(RufeProduktAnzahlAuf), new[] { typeof(int) })!).HasName("fc_produkt_anzahl");
+
+            #endregion
+
             #endregion
 
 
