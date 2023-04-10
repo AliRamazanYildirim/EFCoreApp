@@ -863,15 +863,6 @@ using (var _kontext = new AppDBKontext())
 
     var anzahl = _kontext.ProduktAnzahl.FromSqlInterpolated($"SELECT dbo.fc_produkt_anzahl({kategorieID}) As Anzahl").First().Anzahl;
 
-    //var kategorien = await _kontext.Kategorien.Select(k => new
-    //{
-    //    KategorieName = k.Name,
-    //    ProduktAnzahl = _kontext.RufeProduktAnzahlAuf(k.ID)
-    //}).ToListAsync();
-    //kategorien.ForEach(k =>
-    //{
-    //    Console.WriteLine($"{k.KategorieName}-{k.ProduktAnzahl}");
-    //});
     Console.WriteLine($"Mit {kategorieName} Kategorie gibt's {anzahl} Produkte");
 
     #endregion
