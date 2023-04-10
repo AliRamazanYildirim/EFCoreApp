@@ -842,16 +842,38 @@ using (var _kontext = new AppDBKontext())
 
     //var anzahl = _kontext.RufeProduktAnzahlAuf(1);
 
-    var kategorien = await _kontext.Kategorien.Select(k => new
-    {
-        KategorieName = k.Name,
-        ProduktAnzahl = _kontext.RufeProduktAnzahlAuf(k.ID)
-    }).Where(k=>k.ProduktAnzahl>3).ToListAsync();
+    //var kategorien = await _kontext.Kategorien.Select(k => new
+    //{
+    //    KategorieName = k.Name,
+    //    ProduktAnzahl = _kontext.RufeProduktAnzahlAuf(k.ID)
+    //}).Where(k=>k.ProduktAnzahl>3).ToListAsync();
 
-    kategorien.ForEach(k =>
-    {
-        Console.WriteLine($"{k.KategorieName}-{k.ProduktAnzahl}");
-    });
+    //kategorien.ForEach(k =>
+    //{
+    //    Console.WriteLine($"{k.KategorieName}-{k.ProduktAnzahl}");
+    //});
+    #endregion
+
+    #region Scalar-Valued Function Mit Modell (2.Weise)
+
+    Console.Write("KategorieID eingeben:");
+    int kategorieID = Convert.ToInt32(Console.ReadLine());
+
+    var kategorieName = _kontext.Kategorien.Where(k => k.ID == kategorieID).Select(k => k.Name).SingleOrDefault();
+
+    var anzahl = _kontext.ProduktAnzahl.FromSqlInterpolated($"SELECT dbo.fc_produkt_anzahl({kategorieID}) As Anzahl").First().Anzahl;
+
+    //var kategorien = await _kontext.Kategorien.Select(k => new
+    //{
+    //    KategorieName = k.Name,
+    //    ProduktAnzahl = _kontext.RufeProduktAnzahlAuf(k.ID)
+    //}).ToListAsync();
+    //kategorien.ForEach(k =>
+    //{
+    //    Console.WriteLine($"{k.KategorieName}-{k.ProduktAnzahl}");
+    //});
+    Console.WriteLine($"Mit {kategorieName} Kategorie gibt's {anzahl} Produkte");
+
     #endregion
 
     #endregion

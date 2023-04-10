@@ -19,6 +19,8 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
         public DbSet<VollesProdukt> VolleProdukte { get; set; }
+        public DbSet<ProduktAnzahl> ProduktAnzahl { get; set; }
+
         //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
 
@@ -292,8 +294,17 @@ namespace EFCore.CodeFirst.DZS
 
             #region Scalar-Function Mit Parameter verwenden 
 
+            //modelBuilder.HasDbFunction(typeof(AppDBKontext)
+            //    .GetMethod(nameof(RufeProduktAnzahlAuf), new[] { typeof(int) })!).HasName("fc_produkt_anzahl");
+
+            #endregion
+
+            #region Scalar-Function Mit Modell verwenden 
+
             modelBuilder.HasDbFunction(typeof(AppDBKontext)
                 .GetMethod(nameof(RufeProduktAnzahlAuf), new[] { typeof(int) })!).HasName("fc_produkt_anzahl");
+
+            modelBuilder.Entity<ProduktAnzahl>().HasNoKey();
 
             #endregion
 
