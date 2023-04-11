@@ -18,8 +18,8 @@ namespace EFCore.CodeFirst.DZS
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
 
-        public DbSet<VollesProdukt> VolleProdukte { get; set; }
-        public DbSet<ProduktAnzahl> ProduktAnzahl { get; set; }
+        //public DbSet<VollesProdukt> VolleProdukte { get; set; }
+        //public DbSet<ProduktAnzahl> ProduktAnzahl { get; set; }
 
         //public DbSet<ProduktMitProEigenschaft> ProduktMitProEigenschaften { get; set; }
         //public DbSet<WesentlichProdukt> WesentlichProdukte { get; set; }
@@ -44,10 +44,10 @@ namespace EFCore.CodeFirst.DZS
 
         #region Scalar-Valued Function
 
-        public int RufeProduktAnzahlAuf(int kategorieID)
-        {
-            throw new NotSupportedException("Diese Methode wird von EF Core ausgeführt.");
-        }
+        //public int RufeProduktAnzahlAuf(int kategorieID)
+        //{
+        //    throw new NotSupportedException("Diese Methode wird von EF Core ausgeführt.");
+        //}
 
         #endregion
 
@@ -301,10 +301,10 @@ namespace EFCore.CodeFirst.DZS
 
             #region Scalar-Function Mit Modell verwenden 
 
-            modelBuilder.HasDbFunction(typeof(AppDBKontext)
-                .GetMethod(nameof(RufeProduktAnzahlAuf), new[] { typeof(int) })!).HasName("fc_produkt_anzahl");
+            //modelBuilder.HasDbFunction(typeof(AppDBKontext)
+            //    .GetMethod(nameof(RufeProduktAnzahlAuf), new[] { typeof(int) })!).HasName("fc_produkt_anzahl");
 
-            modelBuilder.Entity<ProduktAnzahl>().HasNoKey();
+            //modelBuilder.Entity<ProduktAnzahl>().HasNoKey();
 
             #endregion
 

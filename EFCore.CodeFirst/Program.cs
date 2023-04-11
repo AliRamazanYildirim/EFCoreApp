@@ -856,17 +856,33 @@ using (var _kontext = new AppDBKontext())
 
     #region Scalar-Valued Function Mit Modell (2.Weise)
 
-    Console.Write("KategorieID eingeben:");
-    int kategorieID = Convert.ToInt32(Console.ReadLine());
+    //Console.Write("KategorieID eingeben:");
+    //int kategorieID = Convert.ToInt32(Console.ReadLine());
 
-    var kategorieName = _kontext.Kategorien.Where(k => k.ID == kategorieID).Select(k => k.Name).SingleOrDefault();
+    //var kategorieName = _kontext.Kategorien.Where(k => k.ID == kategorieID).Select(k => k.Name).SingleOrDefault();
 
-    var anzahl = _kontext.ProduktAnzahl.FromSqlInterpolated($"SELECT dbo.fc_produkt_anzahl({kategorieID}) As Anzahl").First().Anzahl;
+    //var anzahl = _kontext.ProduktAnzahl.FromSqlInterpolated($"SELECT dbo.fc_produkt_anzahl({kategorieID}) As Anzahl").First().Anzahl;
 
-    Console.WriteLine($"Mit {kategorieName} Kategorie gibt's {anzahl} Produkte");
+    //Console.WriteLine($"Mit {kategorieName} Kategorie gibt's {anzahl} Produkte");
 
     #endregion
 
+    #endregion
+
+    #region Projection
+
+    var produkte = await _kontext.Produkte.Select(p => new {
+        p.Name,
+        KategorieName = p.Kategorie.Name,
+        p.Preis,
+        p.RabattPreis
+    }).ToListAsync();
+
+    produkte.ForEach(p =>
+    {
+        Console.WriteLine($"{p.Name}-{p.KategorieName}-{p.Preis}-{p.RabattPreis}");
+    });
+    
     #endregion
 }
 #region Pagination(Query)
