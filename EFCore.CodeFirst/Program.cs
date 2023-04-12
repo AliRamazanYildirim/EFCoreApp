@@ -922,33 +922,49 @@ using (var _kontext = new AppDBKontext())
 
     #region DÜO (DTO) ohne AutoMapper
 
-    var produkte = await _kontext.Produkte.Select(p => new ProduktDüo
-    {
-        KategorieName = p.Kategorie.Name,
-        ProduktName=p.Name,
-        ProduktPreis=p.Preis,
-        Breite = (int?)p.ProduktEigenschaft.Breite,
-    }).Where(p => p.Breite > 5).ToListAsync();
+    //var produkte = await _kontext.Produkte.Select(p => new ProduktListDüo
+    //{
+    //    KategorieName = p.Kategorie.Name,
+    //    ProduktName=p.Name,
+    //    ProduktPreis=p.Preis,
+    //    Breite = (int?)p.ProduktEigenschaft.Breite,
+    //}).Where(p => p.Breite > 5).ToListAsync();
 
-    produkte.ForEach(p =>
-    {
-        Console.WriteLine($"{p.KategorieName}-{p.ProduktName}-{p.ProduktPreis}-{p.Breite}");
-    });
+    //produkte.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.KategorieName}-{p.ProduktName}-{p.ProduktPreis}-{p.Breite}");
+    //});
 
-    var kategorien = await _kontext.Kategorien.Select(k => new KategorieDüo
-    {
-        KategorieName = k.Name,
-        ProduktName = String.Join("-", k.Produkte.Select(p => p.Name)),
-        GesamtPreis = k.Produkte.Sum(k => k.Preis),
-        GesamtBreite = (int?)k.Produkte.Select(pe => pe.ProduktEigenschaft.Breite).Sum()
-    }).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
+    //var kategorien = await _kontext.Kategorien.Select(k => new KategorieDüo
+    //{
+    //    KategorieName = k.Name,
+    //    ProduktName = String.Join("-", k.Produkte.Select(p => p.Name)),
+    //    GesamtPreis = k.Produkte.Sum(k => k.Preis),
+    //    GesamtBreite = (int?)k.Produkte.Select(pe => pe.ProduktEigenschaft.Breite).Sum()
+    //}).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
 
-    kategorien.ForEach(k =>
-    {
-        Console.WriteLine($"{k.KategorieName}-{k.ProduktName}-{k.GesamtPreis}-{k.GesamtBreite}");
-    });
+    //kategorien.ForEach(k =>
+    //{
+    //    Console.WriteLine($"{k.KategorieName}-{k.ProduktName}-{k.GesamtPreis}-{k.GesamtBreite}");
+    //});
     #endregion
 
+    #region DÜO Ohne AutoMapper-2
+
+    var produktDüo = await _kontext.Produkte.Select(p => new ProduktDüo()
+    {
+        ID = p.ID,
+        Name = p.Name,
+        Preis = p.Preis,
+        RabattPreis = p.RabattPreis,
+        Vorrat = p.Vorrat
+    }).ToListAsync();
+
+    produktDüo.ForEach(p =>
+    {
+        Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
+    });
+    #endregion
     #endregion
 
 
