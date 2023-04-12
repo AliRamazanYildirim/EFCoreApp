@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using EFCore.CodeFirst;
+using EFCore.CodeFirst.DÜOe;
 using EFCore.CodeFirst.DZS;
 using EFCore.CodeFirst.Modelle;
 using Microsoft.Data.SqlClient;
@@ -885,6 +886,7 @@ using (var _kontext = new AppDBKontext())
     //{
     //    Console.WriteLine($"{p.Name}-{p.KategorieName}-{p.Preis}-{p.RabattPreis}-{p.Breite}-{p.Grösse}");
     //});
+
     #region Anonymous Type-1
 
     //var kategorien = await _kontext.Kategorien.Include(p=>p.Produkte).Select(k => new
@@ -901,22 +903,50 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
 
-
     #region Anonymous Type-2
 
-    var kategorien = await _kontext.Kategorien.Select(k => new
+    //var kategorien = await _kontext.Kategorien.Select(k => new
+    //{
+    //    KategorieName = k.Name,
+    //    Produkte = String.Join("-", k.Produkte.Select(p => p.Name)),
+    //    GesamtPreis = k.Produkte.Sum(k => k.Preis),
+    //    GesamtBreite=(int?)k.Produkte.Select(pe=>pe.ProduktEigenschaft.Breite).Sum()
+    //}).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
+
+    //kategorien.ForEach(k =>
+    //{
+    //    Console.WriteLine($"{k.KategorieName}-{k.Produkte}-{k.GesamtPreis}-{k.GesamtBreite}");
+    //});
+
+    #endregion
+
+    #region DÜO (DTO) ohne AutoMapper
+
+    var produkte = await _kontext.Produkte.Select(p => new ProduktDüo
+    {
+        KategorieName = p.Kategorie.Name,
+        ProduktName=p.Name,
+        ProduktPreis=p.Preis,
+        Breite = (int?)p.ProduktEigenschaft.Breite,
+    }).Where(p => p.Breite > 5).ToListAsync();
+
+    produkte.ForEach(p =>
+    {
+        Console.WriteLine($"{p.KategorieName}-{p.ProduktName}-{p.ProduktPreis}-{p.Breite}");
+    });
+
+    var kategorien = await _kontext.Kategorien.Select(k => new KategorieDüo
     {
         KategorieName = k.Name,
-        Produkte = String.Join("-", k.Produkte.Select(p => p.Name)),
+        ProduktName = String.Join("-", k.Produkte.Select(p => p.Name)),
         GesamtPreis = k.Produkte.Sum(k => k.Preis),
-        GesamtBreite=(int?)k.Produkte.Select(pe=>pe.ProduktEigenschaft.Breite).Sum()
+        GesamtBreite = (int?)k.Produkte.Select(pe => pe.ProduktEigenschaft.Breite).Sum()
     }).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
 
     kategorien.ForEach(k =>
     {
-        Console.WriteLine($"{k.KategorieName}-{k.Produkte}-{k.GesamtPreis}-{k.GesamtBreite}");
+        Console.WriteLine($"{k.KategorieName}-{k.ProduktName}-{k.GesamtPreis}-{k.GesamtBreite}");
     });
-
     #endregion
 
     #endregion
