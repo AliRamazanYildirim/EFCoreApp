@@ -3,6 +3,7 @@
 using EFCore.CodeFirst;
 using EFCore.CodeFirst.DÜOe;
 using EFCore.CodeFirst.DZS;
+using EFCore.CodeFirst.Kartierer;
 using EFCore.CodeFirst.Modelle;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -951,16 +952,27 @@ using (var _kontext = new AppDBKontext())
 
     #region DÜO Ohne AutoMapper-2
 
-    var produktDüo = await _kontext.Produkte.Select(p => new ProduktDüo()
-    {
-        ID = p.ID,
-        Name = p.Name,
-        Preis = p.Preis,
-        RabattPreis = p.RabattPreis,
-        Vorrat = p.Vorrat
-    }).ToListAsync();
+    //var produktDüo = await _kontext.Produkte.Select(p => new ProduktDüo()
+    //{
+    //    ID = p.ID,
+    //    Name = p.Name,
+    //    Preis = p.Preis,
+    //    RabattPreis = p.RabattPreis,
+    //    Vorrat = p.Vorrat
+    //}).ToListAsync();
 
-    produktDüo.ForEach(p =>
+    //produktDüo.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
+    //});
+    #endregion
+
+    #region DÜO Mit AutoMapper
+
+    var produkte = await _kontext.Produkte.ToListAsync();
+    var produktDüoe = ObjektKartierer.Kartierung.Map<List<ProduktDüo>>(produkte);
+
+    produktDüoe.ForEach(p =>
     {
         Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
     });
