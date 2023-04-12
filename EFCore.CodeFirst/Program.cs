@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using AutoMapper.QueryableExtensions;
 using EFCore.CodeFirst;
 using EFCore.CodeFirst.DÜOe;
 using EFCore.CodeFirst.DZS;
@@ -969,13 +970,24 @@ using (var _kontext = new AppDBKontext())
 
     #region DÜO Mit AutoMapper
 
-    var produkte = await _kontext.Produkte.ToListAsync();
-    var produktDüoe = ObjektKartierer.Kartierung.Map<List<ProduktDüo>>(produkte);
+    //var produkte = await _kontext.Produkte.ToListAsync();
+    //var produktDüoe = ObjektKartierer.Kartierung.Map<List<ProduktDüo>>(produkte);
 
-    produktDüoe.ForEach(p =>
+    //produktDüoe.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
+    //});
+    #endregion
+
+    #region DÜO Mit AutoMapper (Mit ProjectTo)
+
+    var produktDüoe = await _kontext.Produkte.ProjectTo<ProduktDüo>
+        (ObjektKartierer.Kartierung.ConfigurationProvider).Where(p => p.Preis > 30).ToListAsync();
+
+    foreach(var p in produktDüoe)
     {
         Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
-    });
+    };
     #endregion
     #endregion
 
