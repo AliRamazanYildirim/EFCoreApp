@@ -1002,6 +1002,20 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
 
+    #region Transaction - mit einer einzelnen SaveChanges()
+
+    var kategorie = new Kategorie()
+    {
+        Name = "Radiergummi"
+    };
+    _kontext.Kategorien.Add(kategorie);
+
+    var produkt =await  _kontext.Produkte.FirstAsync();
+    produkt.Preis = 60;
+
+    _kontext.SaveChanges();
+    Console.WriteLine("Die Transaktion wurde ausgeführt.");
+    #endregion
 
 }
 #region Pagination(Query)
