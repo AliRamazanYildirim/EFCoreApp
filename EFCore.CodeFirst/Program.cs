@@ -874,6 +874,16 @@ using (var _kontext = new AppDBKontext())
 
     #region Projection
 
+    #region Standard Projection
+    //var produkte = await _kontext.Produkte.Include(k => k.Kategorie).ToListAsync();
+
+    //produkte.ForEach(p =>
+    //{
+    //    Console.WriteLine($"{p.Kategorie.Name}-{p.Name}-{p.Preis}-{p.RabattPreis}");
+    //});
+    #endregion
+
+    #region Anonymous Type-1
     //var produkte = await _kontext.Produkte.Select(p => new
     //{
     //    p.Name,
@@ -888,8 +898,9 @@ using (var _kontext = new AppDBKontext())
     //{
     //    Console.WriteLine($"{p.Name}-{p.KategorieName}-{p.Preis}-{p.RabattPreis}-{p.Breite}-{p.Grösse}");
     //});
+    #endregion
 
-    #region Anonymous Type-1
+    #region Anonymous Type-2
 
     //var kategorien = await _kontext.Kategorien.Include(p=>p.Produkte).Select(k => new
     //{
@@ -905,7 +916,7 @@ using (var _kontext = new AppDBKontext())
 
     #endregion
 
-    #region Anonymous Type-2
+    #region Anonymous Type-3
 
     //var kategorien = await _kontext.Kategorien.Select(k => new
     //{
@@ -981,13 +992,13 @@ using (var _kontext = new AppDBKontext())
 
     #region DÜO Mit AutoMapper (Mit ProjectTo)
 
-    var produktDüoe = await _kontext.Produkte.ProjectTo<ProduktDüo>
-        (ObjektKartierer.Kartierung.ConfigurationProvider).Where(p => p.Preis > 30).ToListAsync();
+    //var produktDüoe = await _kontext.Produkte.ProjectTo<ProduktDüo>
+    //    (ObjektKartierer.Kartierung.ConfigurationProvider).Where(p => p.Preis > 30).ToListAsync();
 
-    foreach(var p in produktDüoe)
-    {
-        Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
-    };
+    //foreach(var p in produktDüoe)
+    //{
+    //    Console.WriteLine($"{p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Vorrat}");
+    //};
     #endregion
     #endregion
 
