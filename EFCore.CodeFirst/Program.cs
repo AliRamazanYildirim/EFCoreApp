@@ -885,19 +885,43 @@ using (var _kontext = new AppDBKontext())
     //{
     //    Console.WriteLine($"{p.Name}-{p.KategorieName}-{p.Preis}-{p.RabattPreis}-{p.Breite}-{p.Grösse}");
     //});
+    #region Anonymous Type-1
+
+    //var kategorien = await _kontext.Kategorien.Include(p=>p.Produkte).Select(k => new
+    //{
+    //    KategorieName = k.Name,
+    //    Produkte = String.Join(",", k.Produkte.Select(p => p.Name)),
+    //    GesamtPreis = k.Produkte.Sum(k => k.Preis)
+    //}).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
+
+    //kategorien.ForEach(k =>
+    //{
+    //    Console.WriteLine($"{k.KategorieName}-{k.Produkte}-{k.GesamtPreis}");
+    //});
+
+    #endregion
+
+
+    #region Anonymous Type-2
+
     var kategorien = await _kontext.Kategorien.Select(k => new
     {
         KategorieName = k.Name,
-        Produkte = String.Join(",",k.Produkte.Select(p=>p.Name)),
-        GesamtPreis = k.Produkte.Sum(k=>k.Preis)
-    }).Where(x => x.GesamtPreis > 10).OrderBy(x=>x.GesamtPreis).ToListAsync();
+        Produkte = String.Join("-", k.Produkte.Select(p => p.Name)),
+        GesamtPreis = k.Produkte.Sum(k => k.Preis),
+        GesamtBreite=(int?)k.Produkte.Select(pe=>pe.ProduktEigenschaft.Breite).Sum()
+    }).Where(x => x.GesamtPreis > 10).OrderBy(x => x.GesamtPreis).ToListAsync();
 
     kategorien.ForEach(k =>
     {
-        Console.WriteLine($"{k.KategorieName}-{k.Produkte}-{k.GesamtPreis}");
+        Console.WriteLine($"{k.KategorieName}-{k.Produkte}-{k.GesamtPreis}-{k.GesamtBreite}");
     });
 
     #endregion
+
+    #endregion
+
+
 }
 #region Pagination(Query)
 //Initialisierer.Build();
