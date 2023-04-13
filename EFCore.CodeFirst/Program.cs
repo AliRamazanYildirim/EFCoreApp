@@ -1002,21 +1002,79 @@ using (var _kontext = new AppDBKontext())
     #endregion
     #endregion
 
+    #region Transaction
+
     #region Transaction - mit einer einzelnen SaveChanges()
 
-    var kategorie = new Kategorie()
-    {
-        Name = "Radiergummi"
-    };
-    _kontext.Kategorien.Add(kategorie);
+    //var kategorie = new Kategorie()
+    //{
+    //    Name = "Radiergummi"
+    //};
+    //_kontext.Kategorien.Add(kategorie);
 
-    var produkt =await  _kontext.Produkte.FirstAsync();
-    produkt.Preis = 60;
+    //var produkt =await  _kontext.Produkte.FirstAsync();
+    //produkt.Preis = 60;
 
-    _kontext.SaveChanges();
-    Console.WriteLine("Die Transaktion wurde ausgeführt.");
+    //_kontext.SaveChanges();
+    //Console.WriteLine("Die Transaktion wurde ausgeführt.");
     #endregion
 
+    #region Transaction - mit try-catch
+    using (var transaction = await _kontext.Database.BeginTransactionAsync())
+    {
+        try
+        {
+            var kategorie = new Kategorie()
+            {
+                Name = "Anspitzer"
+            };
+
+            _kontext.Kategorien.Add(kategorie);
+            _kontext.SaveChanges();
+
+            Produkt produkt = new()
+            {
+                Name = "Faber-Castell",
+                Preis = 2,
+                RabattPreis = 1,
+                Vorrat = 100,
+                Strichcode = 1457,
+                KategorieID = 10
+            };
+
+            _kontext.Produkte.Add(produkt);
+            _kontext.SaveChanges();
+            Console.WriteLine("Die Transaktion wurde ausgeführt.");
+
+            await transaction.CommitAsync();
+
+            string message = "Transaktion erfolgreich abgeschlossen";
+
+            // Protokollierung mit der Klasse Logger 
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler: {ex.Message}");
+
+            transaction.Rollback();
+
+            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+            // Protokollierung im Fehlerfall mit der Klasse Logger
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+            }
+        }
+    }
+
+
+    #endregion
+    #endregion
 }
 #region Pagination(Query)
 //Initialisierer.Build();
