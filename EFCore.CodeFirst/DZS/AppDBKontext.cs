@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,16 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
+        private DbConnection _dbConnection;
 
+        public AppDBKontext(DbConnection dbConnection)
+        {
+            _dbConnection = dbConnection;
+        }
+        public AppDBKontext()
+        {
+            
+        }
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Kategorie> Kategorien { get; set; }
         public DbSet<ProduktEigenschaft> ProduktEigenschaften { get; set; }
@@ -59,11 +69,20 @@ namespace EFCore.CodeFirst.DZS
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Initialisierer.Build();
-            #region Lazy loading Einstellung (Logging)
-            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
-                .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
-            #endregion
+            if (_dbConnection == default(DbConnection))
+            {
+                Initialisierer.Build();
+                #region Lazy loading Einstellung (Logging)
+                optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+                    .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+                #endregion
+            }
+            else
+            {
+                optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+                    .UseLazyLoadingProxies().UseSqlServer(_dbConnection);
+            }
+
 
             #region Global QueryTracking (Logging)
             //optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)

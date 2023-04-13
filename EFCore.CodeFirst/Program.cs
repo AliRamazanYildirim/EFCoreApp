@@ -1,20 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using AutoMapper.QueryableExtensions;
 using EFCore.CodeFirst;
-using EFCore.CodeFirst.DÜOe;
 using EFCore.CodeFirst.DZS;
-using EFCore.CodeFirst.Kartierer;
-using EFCore.CodeFirst.Modelle;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 
 
 
 
 Initialisierer.Build();
-using (var _kontext = new AppDBKontext())
+var konnektion = new SqlConnection(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
+
+IDbContextTransaction transaction = null;
+
+using (var _kontext = new AppDBKontext(konnektion))
 {
 
     #region EF Core Methoden
@@ -1020,7 +1021,63 @@ using (var _kontext = new AppDBKontext())
     #endregion
 
     #region Transaction - mit try-catch
-    using (var transaction = await _kontext.Database.BeginTransactionAsync())
+    //using (var transaction = await _kontext.Database.BeginTransactionAsync())
+    //{
+    //    try
+    //    {
+    //        var kategorie = new Kategorie()
+    //        {
+    //            Name = "Anspitzer"
+    //        };
+
+    //        _kontext.Kategorien.Add(kategorie);
+    //        _kontext.SaveChanges();
+
+    //        Produkt produkt = new()
+    //        {
+    //            Name = "Faber-Castell",
+    //            Preis = 2,
+    //            RabattPreis = 1,
+    //            Vorrat = 100,
+    //            Strichcode = 1457,
+    //            KategorieID = 10
+    //        };
+
+    //        _kontext.Produkte.Add(produkt);
+    //        _kontext.SaveChanges();
+    //        Console.WriteLine("Die Transaktion wurde ausgeführt.");
+
+    //        await transaction.CommitAsync();
+
+    //        string message = "Transaktion erfolgreich abgeschlossen";
+
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
+
+    //        transaction.Rollback();
+
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
+    //}
+
+
+    #endregion
+
+    #region Transaction mit Multiple DbContext Instance (1.Weise)
+    using (transaction = await _kontext.Database.BeginTransactionAsync())
     {
         try
         {
@@ -1043,7 +1100,7 @@ using (var _kontext = new AppDBKontext())
             };
 
             _kontext.Produkte.Add(produkt);
-            _kontext.SaveChanges();
+            await _kontext.SaveChangesAsync();
             Console.WriteLine("Die Transaktion wurde ausgeführt.");
 
             await transaction.CommitAsync();
@@ -1073,9 +1130,77 @@ using (var _kontext = new AppDBKontext())
     }
 
 
+
     #endregion
     #endregion
 }
+#region Transaction mit Multiple DbContext Instance(2.Weise)
+
+using (var dbKontext = new AppDBKontext(konnektion))
+{
+
+    using (transaction = await dbKontext.Database.BeginTransactionAsync())
+    {
+        try
+        {
+            var kategorie = new Kategorie()
+            {
+                Name = "Anspitzer"
+            };
+
+            dbKontext.Kategorien.Add(kategorie);
+            await dbKontext.SaveChangesAsync();
+
+            Produkt produkt = new()
+            {
+                Name = "Faber-Castell",
+                Preis = 2,
+                RabattPreis = 1,
+                Vorrat = 100,
+                Strichcode = 1071,
+                Kategorie=kategorie
+            };
+
+            dbKontext.Produkte.Add(produkt);
+            dbKontext.SaveChanges();
+            Console.WriteLine("Die Transaktion wurde ausgeführt.");
+
+            await transaction.CommitAsync();
+
+            string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+
+            // Protokollierung mit der Klasse Logger 
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler: {ex.Message}");
+
+            transaction.Rollback();
+
+            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+            // Protokollierung im Fehlerfall mit der Klasse Logger
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+            }
+        }
+    }
+
+
+    dbKontext.Database.UseTransaction(transaction.GetDbTransaction());
+
+}
+#endregion
+
+#region Transaction mit Multiple DbContext Instance(2.Weise)
+
+#endregion
+
 #region Pagination(Query)
 //Initialisierer.Build();
 
