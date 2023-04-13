@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 Initialisierer.Build();
 var konnektion = new SqlConnection(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
 
-IDbContextTransaction transaction = null;
+//IDbContextTransaction transaction = null;
 
 using (var _kontext = new AppDBKontext(konnektion))
 {
@@ -1077,128 +1077,120 @@ using (var _kontext = new AppDBKontext(konnektion))
     #endregion
 
     #region Transaction mit Multiple DbContext Instance (1.Weise)
-    using (transaction = await _kontext.Database.BeginTransactionAsync())
-    {
-        try
-        {
-            var kategorie = new Kategorie()
-            {
-                Name = "Anspitzer"
-            };
+    //using (transaction = await _kontext.Database.BeginTransactionAsync())
+    
+    //    try
+    //    {
+    //        var kategorie = new Kategorie()
+    //        {
+    //            Name = "Anspitzer"
+    //        };
 
-            _kontext.Kategorien.Add(kategorie);
-            _kontext.SaveChanges();
+    //        _kontext.Kategorien.Add(kategorie);
+    //        _kontext.SaveChanges();
 
-            Produkt produkt = new()
-            {
-                Name = "Faber-Castell",
-                Preis = 2,
-                RabattPreis = 1,
-                Vorrat = 100,
-                Strichcode = 1457,
-                KategorieID = 10
-            };
+    //        Produkt produkt = new()
+    //        {
+    //            Name = "Faber-Castell",
+    //            Preis = 2,
+    //            RabattPreis = 1,
+    //            Vorrat = 100,
+    //            Strichcode = 1457,
+    //            KategorieID = 10
+    //        };
 
-            _kontext.Produkte.Add(produkt);
-            await _kontext.SaveChangesAsync();
-            Console.WriteLine("Die Transaktion wurde ausgeführt.");
+    //        _kontext.Produkte.Add(produkt);
+    //        await _kontext.SaveChangesAsync();
+    //        Console.WriteLine("Die Transaktion wurde ausgeführt.");
 
-            await transaction.CommitAsync();
+    //        await transaction.CommitAsync();
 
-            string message = "Transaktion erfolgreich abgeschlossen";
+    //        string message = "Transaktion erfolgreich abgeschlossen";
 
-            // Protokollierung mit der Klasse Logger 
-            using (StreamWriter writer = File.AppendText("log.txt"))
-            {
-                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Fehler: {ex.Message}");
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
 
-            transaction.Rollback();
+    //        transaction.Rollback();
 
-            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
 
-            // Protokollierung im Fehlerfall mit der Klasse Logger
-            using (StreamWriter writer = File.AppendText("log.txt"))
-            {
-                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
-            }
-        }
-    }
-
-
-
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
     #endregion
+
+
     #endregion
 }
 #region Transaction mit Multiple DbContext Instance(2.Weise)
 
-using (var dbKontext = new AppDBKontext(konnektion))
-{
+//using (var dbKontext = new AppDBKontext(konnektion))
+//{
 
-    using (transaction = await dbKontext.Database.BeginTransactionAsync())
-    {
-        try
-        {
-            var kategorie = new Kategorie()
-            {
-                Name = "Anspitzer"
-            };
+//    using (transaction = await dbKontext.Database.BeginTransactionAsync())
+    
+//        try
+//        {
+//            var kategorie = new Kategorie()
+//            {
+//                Name = "Anspitzer"
+//            };
 
-            dbKontext.Kategorien.Add(kategorie);
-            await dbKontext.SaveChangesAsync();
+//            dbKontext.Kategorien.Add(kategorie);
+//            await dbKontext.SaveChangesAsync();
 
-            Produkt produkt = new()
-            {
-                Name = "Faber-Castell",
-                Preis = 2,
-                RabattPreis = 1,
-                Vorrat = 100,
-                Strichcode = 1071,
-                Kategorie=kategorie
-            };
+//            Produkt produkt = new()
+//            {
+//                Name = "Faber-Castell",
+//                Preis = 2,
+//                RabattPreis = 1,
+//                Vorrat = 100,
+//                Strichcode = 1071,
+//                Kategorie = kategorie
+//            };
 
-            dbKontext.Produkte.Add(produkt);
-            dbKontext.SaveChanges();
-            Console.WriteLine("Die Transaktion wurde ausgeführt.");
+//            dbKontext.Produkte.Add(produkt);
+//            dbKontext.SaveChanges();
+//            Console.WriteLine("Die Transaktion wurde ausgeführt.");
 
-            await transaction.CommitAsync();
+//            await transaction.CommitAsync();
 
-            string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+//            string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
 
-            // Protokollierung mit der Klasse Logger 
-            using (StreamWriter writer = File.AppendText("log.txt"))
-            {
-                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Fehler: {ex.Message}");
+//            // Protokollierung mit der Klasse Logger 
+//            using (StreamWriter writer = File.AppendText("log.txt"))
+//            {
+//                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            Console.WriteLine($"Fehler: {ex.Message}");
 
-            transaction.Rollback();
+//            transaction.Rollback();
 
-            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+//            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
 
-            // Protokollierung im Fehlerfall mit der Klasse Logger
-            using (StreamWriter writer = File.AppendText("log.txt"))
-            {
-                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
-            }
-        }
-    }
+//            // Protokollierung im Fehlerfall mit der Klasse Logger
+//            using (StreamWriter writer = File.AppendText("log.txt"))
+//            {
+//                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+//            }
+//        }
 
+//    dbKontext.Database.UseTransaction(transaction.GetDbTransaction());
 
-    dbKontext.Database.UseTransaction(transaction.GetDbTransaction());
-
-}
-#endregion
-
-#region Transaction mit Multiple DbContext Instance(2.Weise)
-
+//}
 #endregion
 
 #region Pagination(Query)
