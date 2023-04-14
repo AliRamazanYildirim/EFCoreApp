@@ -8,14 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 
 
-
-
-Initialisierer.Build();
-var konnektion = new SqlConnection(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
-
-//IDbContextTransaction transaction = null;
-
-using (var _kontext = new AppDBKontext(konnektion))
+using (var _kontext = new AppDBKontext())
 {
 
     #region EF Core Methoden
@@ -1078,7 +1071,7 @@ using (var _kontext = new AppDBKontext(konnektion))
 
     #region Transaction mit Multiple DbContext Instance (1.Weise)
     //using (transaction = await _kontext.Database.BeginTransactionAsync())
-    
+
     //    try
     //    {
     //        var kategorie = new Kategorie()
@@ -1129,7 +1122,44 @@ using (var _kontext = new AppDBKontext(konnektion))
     //    }
     #endregion
 
+    #region Transaction - Read Uncommitted (Isolation)
 
+    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadUncommitted))
+
+        try
+        {
+            var produkt = await _kontext.Produkte.FirstAsync();
+            produkt.Preis = 65;
+
+            await _kontext.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+
+            string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+
+
+            // Protokollierung mit der Klasse Logger 
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler: {ex.Message}");
+
+            transaction.Rollback();
+
+            string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+            // Protokollierung im Fehlerfall mit der Klasse Logger
+            using (StreamWriter writer = File.AppendText("log.txt"))
+            {
+                writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+            }
+        }
+
+    #endregion
     #endregion
 }
 #region Transaction mit Multiple DbContext Instance(2.Weise)
@@ -1138,7 +1168,7 @@ using (var _kontext = new AppDBKontext(konnektion))
 //{
 
 //    using (transaction = await dbKontext.Database.BeginTransactionAsync())
-    
+
 //        try
 //        {
 //            var kategorie = new Kategorie()

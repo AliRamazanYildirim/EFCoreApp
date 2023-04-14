@@ -14,12 +14,6 @@ namespace EFCore.CodeFirst.DZS
 {
     public class AppDBKontext:DbContext
     {
-        private DbConnection _dbConnection;
-
-        public AppDBKontext(DbConnection dbConnection)
-        {
-            _dbConnection = dbConnection;
-        }
         public AppDBKontext()
         {
             
@@ -69,19 +63,11 @@ namespace EFCore.CodeFirst.DZS
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (_dbConnection == default(DbConnection))
-            {
                 Initialisierer.Build();
                 #region Lazy loading Einstellung (Logging)
                 optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
                     .UseLazyLoadingProxies().UseSqlServer(Initialisierer.configurationRoot.GetConnectionString("SqlVerbindung"));
                 #endregion
-            }
-            else
-            {
-                optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
-                    .UseLazyLoadingProxies().UseSqlServer(_dbConnection);
-            }
 
 
             #region Global QueryTracking (Logging)
