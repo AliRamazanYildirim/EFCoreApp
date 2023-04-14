@@ -1163,18 +1163,60 @@ using (var _kontext = new AppDBKontext())
 
     #region Transaction - Read Committed (Isolation)
 
-    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted))
+    //using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted))
+
+    //    try
+    //    {
+    //        var produkt = await _kontext.Produkte.FindAsync(10);
+    //        produkt.Preis = 5;
+
+    //        await _kontext.SaveChangesAsync();
+
+    //        await transaction.CommitAsync();
+
+    //        string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+
+
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
+
+    //        transaction.Rollback();
+
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
+
+    #endregion
+
+    #region Transaction - Repeatable Read (Isolation)
+
+    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead))
 
         try
         {
-            var produkt = await _kontext.Produkte.FindAsync(10);
-            produkt.Preis = 5;
+            var produkte = await _kontext.Produkte.Take(3).ToListAsync();
 
             await _kontext.SaveChangesAsync();
 
             await transaction.CommitAsync();
 
-            string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+            string message = String.Empty;
+            foreach (var p in produkte)
+            {
+                message += $"Transaktion erfolgreich abgeschlossen {p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Strichcode}-{p.Vorrat}\n";
+            }
 
 
             // Protokollierung mit der Klasse Logger 
