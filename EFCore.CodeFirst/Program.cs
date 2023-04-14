@@ -1124,12 +1124,51 @@ using (var _kontext = new AppDBKontext())
 
     #region Transaction - Read Uncommitted (Isolation)
 
-    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadUncommitted))
+    //using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadUncommitted))
+
+    //    try
+    //    {
+    //        var produkt = await _kontext.Produkte.FirstAsync();
+    //        produkt.Preis = 65;
+
+    //        await _kontext.SaveChangesAsync();
+
+    //        await transaction.CommitAsync();
+
+    //        string message = $"Transaktion erfolgreich abgeschlossen {produkt.ID}-{produkt.Name}-{produkt.Preis}-{produkt.RabattPreis}-{produkt.Strichcode}-{produkt.Vorrat}";
+
+
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
+
+    //        transaction.Rollback();
+
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
+
+    #endregion
+
+    #region Transaction - Read Committed (Isolation)
+
+    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted))
 
         try
         {
-            var produkt = await _kontext.Produkte.FirstAsync();
-            produkt.Preis = 65;
+            var produkt = await _kontext.Produkte.FindAsync(10);
+            produkt.Preis = 5;
 
             await _kontext.SaveChangesAsync();
 
