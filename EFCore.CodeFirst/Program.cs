@@ -1202,11 +1202,53 @@ using (var _kontext = new AppDBKontext())
 
     #region Transaction - Repeatable Read (Isolation)
 
-    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead))
+    //using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead))
+
+    //    try
+    //    {
+    //        var produkte = await _kontext.Produkte.Take(3).ToListAsync();
+
+    //        await _kontext.SaveChangesAsync();
+
+    //        await transaction.CommitAsync();
+
+    //        string message = String.Empty;
+    //        foreach (var p in produkte)
+    //        {
+    //            message += $"Transaktion erfolgreich abgeschlossen {p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Strichcode}-{p.Vorrat}\n";
+    //        }
+
+
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
+
+    //        transaction.Rollback();
+
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
+
+    #endregion
+
+    #region Transaction - Serializable (Isolation)
+
+    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
 
         try
         {
-            var produkte = await _kontext.Produkte.Take(3).ToListAsync();
+            var produkte = await _kontext.Produkte.ToListAsync();
 
             await _kontext.SaveChangesAsync();
 
