@@ -1244,13 +1244,55 @@ using (var _kontext = new AppDBKontext())
 
     #region Transaction - Serializable (Isolation)
 
-    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+    //using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+
+    //    try
+    //    {
+    //        var produkte = await _kontext.Produkte.ToListAsync();
+
+    //        await _kontext.SaveChangesAsync();
+
+    //        await transaction.CommitAsync();
+
+    //        string message = String.Empty;
+    //        foreach (var p in produkte)
+    //        {
+    //            message += $"Transaktion erfolgreich abgeschlossen {p.ID}-{p.Name}-{p.Preis}-{p.RabattPreis}-{p.Strichcode}-{p.Vorrat}\n";
+    //        }
+
+
+    //        // Protokollierung mit der Klasse Logger 
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: INFO - {message}");
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Fehler: {ex.Message}");
+
+    //        transaction.Rollback();
+
+    //        string errorMessage = $"Transaktion fehlgeschlagen: {ex.Message}";
+
+    //        // Protokollierung im Fehlerfall mit der Klasse Logger
+    //        using (StreamWriter writer = File.AppendText("log.txt"))
+    //        {
+    //            writer.WriteLine($"{DateTime.Now}: ERROR - {errorMessage}");
+    //        }
+    //    }
+
+    #endregion
+
+    #region Transaction - Snapshot (Isolation)
+
+    using (var transaction = await _kontext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Snapshot))
 
         try
         {
-            var produkte = await _kontext.Produkte.ToListAsync();
+            var produkte = await _kontext.Produkte.AsNoTracking().ToListAsync();
 
-            await _kontext.SaveChangesAsync();
+            var produkt = await _kontext.Produkte.AsNoTracking().ToListAsync();
 
             await transaction.CommitAsync();
 
