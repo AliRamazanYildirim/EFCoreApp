@@ -1,6 +1,7 @@
 ﻿using Concurrency.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Concurrency.Web.Controllers
 {
@@ -25,10 +26,37 @@ namespace Concurrency.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Aktualisieren(Produkt produkt)
         {
-            _kontext.Produkte.Update(produkt);
-            await _kontext.SaveChangesAsync();
+            try
+            {
+                _kontext.Produkte.Update(produkt);
+                await _kontext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Liste));
+                return RedirectToAction(nameof(Liste));
+            }
+            catch(DbUpdateConcurrencyException ex)
+            {
+                var exceptionEntry = ex.Entries.First();
+                var currentProdukt = exceptionEntry.Entity as Produkt;
+                var databaseValues = exceptionEntry.GetDatabaseValues();
+                //var databaseProdukt = databaseValues.ToObject() as Produkt;
+                var clientValues = exceptionEntry.CurrentValues;
+
+                if (databaseValues==null)
+                {
+                    ModelState.AddModelError(string.Empty, "Dieses Produkt wurde von einer anderen Person gelöscht.");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Dieses Produkt wurde von einer anderen Person verändert.");
+                    var databaseProdukt = databaseValues.ToObject() as Produkt;
+                    if (databaseProdukt != null)
+                    {
+                        ModelState.AddModelError(string.Empty, $"Aktualisierte Produkte: Name {databaseProdukt.Name} - Preis {databaseProdukt.Preis} - Vorrat {databaseProdukt.Vorrat}");
+                    }
+                }
+            }
+            return View(produkt);
+
         }
         [HttpGet]
         public IActionResult Addieren()
