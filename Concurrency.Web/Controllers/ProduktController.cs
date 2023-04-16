@@ -75,5 +75,31 @@ namespace Concurrency.Web.Controllers
             }
             return View(produkt);
         }
+        public async Task<IActionResult> Löschen(int? ID)
+        {
+            if (ID == null)
+            {
+                return NotFound();
+            }
+
+            var produkt = await _kontext.Produkte
+                .FirstOrDefaultAsync(m => m.ID == ID);
+
+            if (produkt == null)
+            {
+                return NotFound();
+            }
+
+            return View(produkt);
+        }
+
+        [HttpPost, ActionName("Löschen")]
+        public async Task<IActionResult> LöschenBestätigen(int ID)
+        {
+            var produkt = await _kontext.Produkte.FindAsync(ID);
+            _kontext.Produkte.Remove(produkt);
+            await _kontext.SaveChangesAsync();
+            return RedirectToAction(nameof(Liste));
+        }
     }
 }

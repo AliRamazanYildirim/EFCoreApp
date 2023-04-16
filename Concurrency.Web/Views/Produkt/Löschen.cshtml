@@ -1,0 +1,37 @@
+﻿@model Produkt
+
+<h2>Löschen</h2>
+
+<h3>Sind Sie sicher, dass Sie dies löschen wollen?</h3>
+<div>
+    <h4>Produkt</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Price
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Preis)
+        </dd>
+        <dt class="col-sm-2">
+            Vorrat
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vorrat)
+        </dd>
+    </dl>
+
+    <form asp-action="Löschen">
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <input type="submit" value="Löschen" class="btn btn-outline-danger" /> |
+            <a asp-action="Liste">Zurück zur Liste</a>
+        </div>
+    </form>
+</div>
