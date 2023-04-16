@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Concurrency.Web.Models.Produkt>
+
+@{
+    ViewData["Title"] = "Liste";
+}
+
+<h1>Liste</h1>
+
+<p>
+    <a asp-action="Addieren">Neu Erstellen</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vorrat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RowVersion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vorrat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RowVersion)
+                </td>
+                <td>
+                    <a asp-action="Aktualisieren" asp-route-id="@item.ID">Aktualisieren</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Löschen" asp-route-id="@item.ID">Löschen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
