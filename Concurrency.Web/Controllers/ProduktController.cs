@@ -101,5 +101,18 @@ namespace Concurrency.Web.Controllers
             await _kontext.SaveChangesAsync();
             return RedirectToAction(nameof(Liste));
         }
+        [HttpGet]
+        public async Task<IActionResult> ProduktDetails(int ID)
+        {
+            var produkt =await _kontext.Produkte.FindAsync(ID);
+
+            if (produkt == null)
+            {
+                return NotFound();
+            }
+
+            return View(produkt);
+        }
+
     }
 }

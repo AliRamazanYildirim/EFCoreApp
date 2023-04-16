@@ -1,0 +1,36 @@
+﻿@model Concurrency.Web.Models.Produkt
+
+@{
+    ViewData["Title"] = "ProduktDetails";
+}
+
+<h1>ProduktDetails</h1>
+
+<div>
+    <h4>Produkt</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Preis)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Preis)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Vorrat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Vorrat)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Liste">Zurück zur Liste</a>
+</div>
